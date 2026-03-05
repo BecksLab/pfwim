@@ -50,3 +50,5 @@ rsconnect/
 
 # MacOS nonsense
 .DS_Store
+.Rproj.user
+.quarto
