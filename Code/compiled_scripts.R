@@ -17,33 +17,25 @@ selected_web_names <- tolower(c(
   "Ythanjacob",
   "Stmarks",
   "Kongsfjorden",
-  "Weddell",
-  "Chengjiang",
-  "Burgess"
+  "Weddell"
 ))
 
-websizeorder <- tolower(c("Ythanjacob", "Stmarks", "Kongsfjorden", "Weddell","Chengjiang","Burgess"))
-modern_webs <- tolower(c("Ythanjacob", "Stmarks", "Kongsfjorden", "Weddell","Chengjiang","Burgess"))
+websizeorder <- tolower(c("Ythanjacob", "Stmarks", "Kongsfjorden", "Weddell"))
+modern_webs <- tolower(c("Ythanjacob", "Stmarks", "Kongsfjorden", "Weddell"))
 
 
 #### Import OG webs----
 
-#Remove trailing white space
-og_kon <- read_csv("Data/cirtwill_kongsfjorden_edgelist.csv") %>% rename("res_og_node_name" = res_sp, "con_og_node_name" = con_sp) %>% mutate(across(where(is.character), str_trim)) %>% mutate(across(where(is.character), tolower)) 
-og_stm <- read_csv("Data/cirtwill_stmarks_edgelist.csv") %>% rename("res_og_node_name" = res_sp, "con_og_node_name" = con_sp) %>% mutate(across(where(is.character), str_trim))%>% mutate(across(where(is.character), tolower)) 
-og_yth <- read_csv("Data/cirtwill_ythan_edgelist.csv") %>% rename("res_og_node_name" = res_sp, "con_og_node_name" = con_sp) %>% mutate(across(where(is.character), str_trim))%>% mutate(across(where(is.character), tolower)) 
-og_wed <- read_csv("Data/shaw_weddell_edgelist.csv") %>% dplyr::select(res_og_node_name, con_og_node_name) %>% mutate(across(where(is.character), str_trim))%>% mutate(across(where(is.character), tolower)) 
-
-og_bur <- read_csv("Data/burgess_dunne08_exported_221128.csv") %>% dplyr::select(res_name,con_name) %>% rename("res_og_node_name" = res_name, "con_og_node_name" = con_name) %>% mutate(across(where(is.character), str_trim))
-og_che <- read_csv("Data/chengjiang_dunne08_exported_221128.csv") %>% dplyr::select(res_name,con_name) %>% rename("res_og_node_name" = res_name, "con_og_node_name" = con_name) %>% mutate(across(where(is.character), str_trim))
+og_kon <- read_csv("Data/cirtwill_kongsfjorden_edgelist.csv") %>% rename("res_og_node_name" = res_sp, "con_og_node_name" = con_sp)
+og_stm <- read_csv("Data/cirtwill_stmarks_edgelist.csv") %>% rename("res_og_node_name" = res_sp, "con_og_node_name" = con_sp)
+og_yth <- read_csv("Data/cirtwill_ythan_edgelist.csv") %>% rename("res_og_node_name" = res_sp, "con_og_node_name" = con_sp)
+og_wed <- read_csv("Data/shaw_weddell_edgelist.csv") %>% dplyr::select(res_og_node_name, con_og_node_name)
 
 web_list_og <- list(
   kongsfjorden = og_kon,
   stmarks = og_stm,
   ythanjacob = og_yth,
-  weddell = og_wed,
-  burgess = og_bur,
-  chengjiang = og_che
+  weddell = og_wed
 )
 
 # Filter for the webs you're interested in
@@ -57,20 +49,10 @@ for (i in names(web_list_og)) {
   all_web_names <- rbind(all_web_names, cbind(node = temp, web = i))
 }
 
-#Edit for burgess and chengjiang
-all_web_names<-as.data.frame(all_web_names)
-#all_web_names$node<-ifelse(all_web_names$web %in% c("burgess","chengjiang"),tolower(gsub("[[:punct:][:blank:]]+", " ", all_web_names$node)),all_web_names$node)
-
-####################NEW LINE 231101
-all_web_names$node<-tolower(gsub("[[:punct:][:blank:]]+", " ", all_web_names$node))
-all_web_names$node<-trimws(all_web_names$node)
-
 
 #### Import latest metadata----
 
-meta <- read.csv("Data/fw_metadata_231101.csv") %>%
-  mutate(across(where(is.character), str_trim)) %>%
-  mutate(across(where(is.character), tolower)) %>%
+meta <- read.csv("Data/fw_metadata.csv") %>%
   mutate(web = tolower(web)) %>%
   mutate(
     newest_node_name = ifelse(unchanged_node_name %in% "", updated_node_name, unchanged_node_name),
@@ -79,48 +61,31 @@ meta <- read.csv("Data/fw_metadata_231101.csv") %>%
   group_by(newest_node_name) %>% 
   rename("size_bodymass" = og_body_weight)
 
-####################NEW LINE 231101
-meta<-meta %>%
-  mutate(newest_node_name = trimws(tolower(gsub("[[:punct:][:blank:]]+", " ", newest_node_name)))) %>%
-  mutate(oldest_node_name = trimws(tolower(gsub("[[:punct:][:blank:]]+", " ", oldest_node_name)))) 
-
 meta <- meta %>%
   # Filter for the webs you're interested in
   filter(web %in% selected_web_names) %>%
   # Record feeding categories to simplify
-  mutate(feeding = gsub("f_mini", "f_surf", feeding)) %>%
-  distinct()
+  mutate(feeding = gsub("f_mini", "f_surf", feeding))
 meta$kingdom[is.na(meta$kingdom)] <- c("kingdom_missing")
-#Confirm no duplicate rows
-meta <- as_tibble(meta) %>% distinct()
 
 # Check that no web-taxa are duplicated, which would mess up merging
 # Identify duplicates
 id <- paste(meta$web, meta$oldest_node_name)
 print(paste(id[id %in% id[duplicated(id)]]))
 
-#Edit for burgess and chengjiang
-meta$newest_node_name<-ifelse(meta$web %in% c("burgess","chengjiang"),tolower(gsub("[[:punct:][:blank:]]+", " ", meta$newest_node_name)),meta$newest_node_name)
-meta$oldest_node_name<-ifelse(meta$web %in% c("burgess","chengjiang"),tolower(gsub("[[:punct:][:blank:]]+", " ", meta$oldest_node_name)),meta$oldest_node_name)
-
-#Make necessary columns numerical
-
-
 ## Note which taxa need to be dropped
 meta <- meta %>%
   # Drop if not recorded in OG web
-  filter(tolower(oldest_node_name) %in% tolower(all_web_names$node)) %>%
+  filter(oldest_node_name %in% all_web_names) %>%
   # Metazoa not resolved to genus or species
-  mutate(drop_taxon_rank = ifelse((kingdom == "animalia" & is.na(genus)), 1, 0)) %>%
+  mutate(drop_taxon_rank = ifelse((kingdom == "Animalia" & is.na(genus)), 1, 0)) %>%
   # Metazoa without functional data
-  mutate(drop_functional = ifelse((kingdom == "animalia" &
+  mutate(drop_functional = ifelse((kingdom == "Animalia" &
     (is.na(tiering) | is.na(motility) | is.na(feeding))), 1, 0)) %>%
   # Metazoa without size info
   mutate(size_bodymass = gsub("NULL", NA, size_bodymass)) %>%
-  mutate(size_bodymass=as.numeric(as.character(size_bodymass))) %>%
-  mutate(size_max=as.numeric(as.character(size_max))) %>%
-  mutate(drop_size1 = ifelse((kingdom == "animalia" & is.na(size_max) & is.na(size_bodymass)), 1, 0)) %>%
-  mutate(drop_size2 = ifelse((kingdom == "animalia" & ("unknown" %in% c(size_bodymass, size_max))), 1, 0)) %>%
+  mutate(drop_size1 = ifelse((kingdom == "Animalia" & is.na(size_max) & is.na(size_bodymass)), 1, 0)) %>%
+  mutate(drop_size2 = ifelse((kingdom == "Animalia" & ("unknown" %in% c(size_bodymass, size_max))), 1, 0)) %>%
   mutate(size_select = as.numeric(as.character(gsub("NA", "", paste(size_bodymass, size_max, sep = ""))))) %>%
   # Summarize drops
   mutate(drop_summary = drop_taxon_rank + drop_functional + drop_size1 + drop_size2) %>%
@@ -131,7 +96,7 @@ meta <- meta %>%
   # Replace taxa with size=0 with the minimum value
   mutate(size_select = ifelse(size_select == 0, min(meta$size_select[meta$size_select > 0], na.rm = TRUE), size_select)) %>%
   # Replace size of matter with minimum
-  mutate(size_select = ifelse(kingdom %in% c("Matter","matter"), min(meta$size_select[meta$size_select > 0], na.rm = TRUE), size_select))
+  mutate(size_select = ifelse(kingdom == "Matter", min(meta$size_select[meta$size_select > 0], na.rm = TRUE), size_select))
 
 
 
@@ -150,12 +115,7 @@ for (i in names(web_list_og)) {
   i_new <- word(i, 1, sep = "_")
 
   select_web <- web_list_og[[i]] %>% distinct()
-  
-  ####NEW LINE 231101
-  select_web<-select_web %>%
-    mutate(res_og_node_name = trimws(tolower(gsub("[[:punct:][:blank:]]+", " ", res_og_node_name)))) %>%
-    mutate(con_og_node_name = trimws(tolower(gsub("[[:punct:][:blank:]]+", " ", con_og_node_name))))
-    
+
   select_meta <- meta %>%
     filter(web == i) %>%
     dplyr::select(newest_node_name, oldest_node_name, kingdom) %>%
@@ -178,13 +138,13 @@ for (i in names(web_list_og)) {
     filter(res_new_node_name %in% select_meta_drop & con_new_node_name %in% select_meta_drop)
 
   web_list_cleaned_taxonomy[[i]] <- as.matrix(cleaned_web %>% dplyr::select(res_new_node_name, con_new_node_name))
-  web_list_cleaned_metazoa[[i]] <- as.matrix(cleaned_web %>% filter(res_kingdom %in% c("animalia","Animalia") & con_kingdom %in% c("animalia","Animalia")) %>% dplyr::select(res_new_node_name, con_new_node_name))
+  web_list_cleaned_metazoa[[i]] <- as.matrix(cleaned_web %>% filter(res_kingdom == "Animalia" & con_kingdom == "Animalia") %>% dplyr::select(res_new_node_name, con_new_node_name))
 
   # Group non-metazoans by kingdom
   fc_web <- cleaned_web %>%
     mutate(
-      res_node_node_name_fc1 = ifelse(res_kingdom %in% c("animalia","Animalia"), res_new_node_name, res_kingdom),
-      con_node_node_name_fc1 = ifelse(con_kingdom %in% c("animalia","Animalia"), con_new_node_name, con_kingdom)
+      res_node_node_name_fc1 = ifelse(res_kingdom == "Animalia", res_new_node_name, res_kingdom),
+      con_node_node_name_fc1 = ifelse(con_kingdom == "Animalia", con_new_node_name, con_kingdom)
     )
 
   web_list_fc_base_1[[i]] <- as.matrix(fc_web %>% dplyr::select(res_node_node_name_fc1, con_node_node_name_fc1) %>% distinct())
@@ -192,8 +152,8 @@ for (i in names(web_list_og)) {
   # Group non-metazoans as single node
   fc_web <- fc_web %>%
     mutate(
-      res_node_node_name_fc2 = ifelse(res_kingdom %in% c("animalia","Animalia"), res_new_node_name, "non-metazoan"),
-      con_node_node_name_fc2 = ifelse(con_kingdom %in% c("animalia","Animalia"), con_new_node_name, "non-metazoan")
+      res_node_node_name_fc2 = ifelse(res_kingdom == "Animalia", res_new_node_name, "Non-metazoan"),
+      con_node_node_name_fc2 = ifelse(con_kingdom == "Animalia", con_new_node_name, "Non-metazoan")
     )
 
   web_list_fc_base_2[[i]] <- as.matrix(fc_web[, c("res_node_node_name_fc2", "con_node_node_name_fc2")] %>% distinct())
@@ -254,9 +214,9 @@ fig_names <- tibble::tribble(
   "Mean norm. deg.", "Mean deg.",
   "TL (std)", "TL",
   "Mean TL (std)", "Mean TL",
-  #"Max TL (std)", "Max TL",
+  "Max TL (std)", "Max TL",
   "OI (std)", "OI",
-  #"SOI (std)", "SOI",
+  "SOI (std)", "SOI",
   "Mean CPL", "Mean CPL",
   "Norm. mot: Linear chains", "Motif: Lin. ch.",
   "Norm. mot: Omnivory", "Motif: Omn.",
@@ -269,9 +229,7 @@ fig_web_names <- tibble::tribble(
   "stmarks", "St Marks",
   "kongsfjorden", "Kongsfjorden",
   "loughhyne", "Lough Hyne",
-  "weddell", "Weddell",
-  "chengjiang","Chengjiang",
-  "burgess","Burgess"
+  "weddell", "Weddell"
 )
 
 
@@ -306,7 +264,7 @@ abb_names <- tibble::tribble(
   "fc2", "Single basal node",
   "mo", "Metazoan-only"
 )
-### SFig1.pdf ----
+
 ggplot(stats_netlevel %>%
   mutate(variable_long_name = jlookup(variable_long_name, fig_names, matching_col = "old", new_values = "new")) %>%
   mutate(web = jlookup(web, fig_web_names, "old", "new")) %>%
@@ -321,6 +279,23 @@ ggplot(stats_netlevel %>%
   ylab("") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank()) +
   facet_wrap(. ~ variable_long_name, scales = "free", ncol = 5)
+
+# Selected levels for analysis
+ggplot(stats_netlevel %>%
+  mutate(variable_long_name = jlookup(variable_long_name, fig_names, matching_col = "old", new_values = "new")) %>%
+  mutate(web = str_to_title(web)) %>%
+  filter(!is.na(variable_long_name)) %>%
+  mutate(variable_long_name = factor(variable_long_name, levels = fig_names$new)) %>%
+  filter(type %in% c("ct", "fc2"))) +
+  geom_point(aes(x = web, y = value, color = type, shape = type)) +
+  xlab("") +
+  ylab("") +
+  theme(axis.text.x = element_text(
+    angle = 45,
+    # face=websizefont,
+    hjust = 1
+  ), legend.title = element_blank()) +
+  facet_wrap(. ~ variable_long_name, scales = "free")
 
 
 #### BASIC STATS: Niche normalized----
@@ -338,10 +313,10 @@ library(R.utils)
 print(Sys.time())
 argen <- c()
 closeAllConnections()
-myCluster <- makeCluster(6)
+myCluster <- makeCluster(4)
 registerDoParallel(myCluster)
 stats_netlevel_niche_stats <- c()
-reps <- 1000
+reps <- 5
 argen <- foreach(i = 1:nrow(stats_netlevel_niche_SC), .combine = rbind, .packages = c("igraph", "tidyverse"), .errorhandling = "remove") %dopar% {
   stats_netlevel_niche_stats <- c()
   temp_df <- niche_model_replicates(stats_netlevel_niche_SC[i, c("Size")] %>% pull(),
@@ -378,7 +353,6 @@ for (i in 1:nrow(stats_netlevel_niche_comparison)) {
 
 stats_netlevel_niche_comparison_joined <- cbind(stats_netlevel_niche_comparison, model_error = me_vals) %>% mutate(web = factor(web, levels = websizeorder))
 
-### SFig2.pdf ----
 ggplot(
   stats_netlevel_niche_comparison_joined %>%
     mutate(variable_long_name = jlookup(variable_long_name, fig_names, matching_col = "old", new_values = "new")) %>%
@@ -440,7 +414,7 @@ ggplot(stats_nodelevel, aes(x = web, y = value)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank()) +
   facet_wrap(variable ~ type, scales = "free")
 
-### SFig3.pdf ----
+#### FIGURE
 ggplot(stats_nodelevel %>%
   left_join(var_names, by = c("variable" = "variable_short_name")) %>%
   mutate(variable_long_name = jlookup(variable_long_name, fig_names, matching_col = "old", new_values = "new")) %>%
@@ -505,11 +479,11 @@ ggplot(stats_nodelevel_summarized %>% filter(type %in% c("fc2", "ct")), aes(x = 
 
 #### LIFE HABIT STATS: Metadata----
 
-vars_for_cor <- c("web", "tiering", "feeding", "motility", "size_select","newest_node_name")
+vars_for_cor <- c("web", "tiering", "feeding", "motility", "size_select")
 
 all_metadata <- meta %>%
   # filter(web!="sanak")
-  filter(drop_summary == 0 & kingdom %in% c("animalia","Animalia")) %>%
+  filter(drop_summary == 0 & kingdom == "Animalia") %>%
   dplyr::select(c(vars_for_cor)) %>%
   # distinct() %>%
   mutate_all(., as.factor) %>%
@@ -547,7 +521,7 @@ stats_functional <- stats_functional_mstr %>%
   drop_na(value)
 stats_functional$variable <- jlookup(stats_functional$variable, var_names, matching_col = "variable_short_name", new_values = "variable_long_name")
 
-### SFig8.pdf ----
+# FIGURE####
 ggplot(stats_functional %>% filter(variable %in% c(
   "Functional dispersion", "Functional divergence", "Functional evenness",
   "Trait combinations"
@@ -570,7 +544,7 @@ ggplot(stats_functional %>% filter(variable %in% c(
 
 
 stats_nodehabits <- as.data.frame(stats_nodelevel_mstr) %>%
-  filter(type == "fc2" & taxon != "non-metazoan") %>%
+  filter(type == "fc2" & taxon != "Non-metazoan") %>%
   left_join(all_metadata, by = c("web", "taxon" = "newest_node_name")) %>%
   distinct() %>%
   pivot_longer(c("tiering", "feeding", "motility"), names_to = c("trait"), values_to = c("trait_value")) %>%
@@ -626,6 +600,8 @@ ggplot(
 
 stats_nodehabits$trait_value <- jlookup(stats_nodehabits$trait_value, trait_defs, matching_col = "short_trait", new_values = "full_trait")
 
+
+#### FIGURE
 p1 <- ggplot(
   stats_nodehabits %>% dplyr::select(taxon, web, variable_value, size_select, variable) %>%
     distinct() %>%
@@ -660,7 +636,6 @@ p2 <- ggplot(
   facet_grid(variable ~ trait, scales = "free", space = "free_x")
 
 library(patchwork)
-### SFig7.pdf ----
 (p1 | p2) + plot_layout(guides = "collect", widths = c(1, 3))
 
 
@@ -674,7 +649,7 @@ selected_web_list <- mstr_web_list[["fc2"]]
 all_possible_interactions <- c()
 for (i in names(selected_web_list)) {
   selected_web <- as.data.frame(selected_web_list[[i]])
-  selected_web <- filter_all(selected_web, all_vars(. != "non-metazoan"))
+  selected_web <- filter_all(selected_web, all_vars(. != "Non-metazoan"))
 
   selected_list <- as.data.frame(mat2list(as.matrix(as_adjacency_matrix(graph_from_edgelist(as.matrix(selected_web), directed = TRUE)))))
   colnames(selected_list) <- c("consumer", "resource", "interaction")
@@ -742,17 +717,17 @@ ggplot(data = predprey_sizes, aes(x = log(size_select_res), y = log(size_select_
   ylab("Log predator size") +
   facet_wrap(web ~ .)
 
-### SFig9.pdf ----
+#### FIGURE
 ggplot(data = predprey_sizes %>% filter(interaction == 1), aes(x = log(size_select_con), y = log(size_select_res))) +
-  geom_abline(slope = 1, intercept = 0, linetype="dashed", color="darkgrey") +
   geom_point(alpha = 0.2, size = 0.5) +
+  geom_abline(slope = 1, intercept = 0) +
   xlab("Log predator size") +
   ylab("Log prey size") +
   theme(
     aspect.ratio = 1,
     legend.position = "none"
   ) +
-  facet_wrap(. ~ (web),nrow=1)
+  facet_grid(. ~ (web))
 
 ggplot(predprey_sizes %>% filter(interaction == 1) %>% mutate(size_select_ratio = log(size_select_res) / log(size_select_con)), aes(x = size_select_ratio, color = web)) +
   geom_density() +
@@ -798,14 +773,14 @@ web_list_inferred_species <- list()
 
 
 # Select number of runs for species webs
-webs_to_run <- c("ythanjacob", "stmarks", "kongsfjorden", "weddell","chengjiang","burgess")
+webs_to_run <- c("ythanjacob", "stmarks", "kongsfjorden", "weddell")
 
-runs <- 100
+runs <- 5
 for (i in webs_to_run) {
 
   # Only need to predict for metazoans
   data <- meta %>%
-    filter(web == i & kingdom %in% c("animalia","Animalia") & drop_summary == 0) %>%
+    filter(web == i & kingdom == "Animalia" & drop_summary == 0) %>%
     dplyr::select(newest_node_name, all_of(selected_vars_categorical), all_of(selected_vars_numerical)) %>%
     mutate(size_select = ifelse(size_select <= 0.0000000001, 0.0000000001, size_select)) %>%
     drop_na() %>%
@@ -828,6 +803,8 @@ for (i in webs_to_run) {
 
   print(i)
 }
+
+
 
 
 #### COMPARE INFERRED WEBS: Compare metaweb and realized webs----
@@ -916,7 +893,7 @@ myCluster <- makeCluster(8)
 registerDoParallel(myCluster)
 stats_netlevel_niche_stats <- c()
 # This really needs to be higher (i.e., 1000)
-reps <- 500
+reps <- 5
 
 argen <- foreach(i = 1:nrow(stats_compare_niche_std), .combine = rbind, .packages = c("igraph", "tidyverse"), .errorhandling = "remove") %dopar% {
   stats_netlevel_niche_stats <- c()
@@ -1038,18 +1015,18 @@ ggplot(compare_inferred_nodes2) +
   ylab("fc2") +
   facet_wrap(name ~ web, scales = "free", ncol = length(unique(compare_inferred_nodes2$web)))
 
-# ggplot(compare_inferred_nodes2) +
-#   geom_point(aes(x = nferred_mw_0, y = fc2_0 - inferred_mw_0)) +
-#   xlab("") +
-#   ylab("") +
-#   facet_wrap(name ~ web, scales = "free", ncol = length(unique(compare_inferred_nodes2$web)))
-# 
-# ggplot(compare_inferred_nodes2 %>% filter(!variable_long_name %in% c("Betweenness", "OI (sw)", "TL (sw)", "Generality", "Vulnerability"))) +
-#   geom_boxplot(aes(x = web, y = inferred_mw_0 - fc2_0)) +
-#   xlab("web") +
-#   ylab("mw - fc2 value") +
-#   facet_wrap(variable_long_name ~ ., scales = "free", ncol = length(unique(compare_inferred_nodes2$web))) +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggplot(compare_inferred_nodes2) +
+  geom_point(aes(x = inferred_mw_0, y = fc2_0 - inferred_mw_0)) +
+  xlab("") +
+  ylab("") +
+  facet_wrap(name ~ web, scales = "free", ncol = length(unique(compare_inferred_nodes2$web)))
+
+ggplot(compare_inferred_nodes2 %>% filter(!variable_long_name %in% c("Betweenness", "OI (sw)", "TL (sw)", "Generality", "Vulnerability"))) +
+  geom_boxplot(aes(x = web, y = inferred_mw_0 - fc2_0)) +
+  xlab("web") +
+  ylab("mw - fc2 value") +
+  facet_wrap(variable_long_name ~ ., scales = "free", ncol = length(unique(compare_inferred_nodes2$web))) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 #### FIGURE
 ggplot(
@@ -1156,7 +1133,7 @@ web_list_inferred_mw_basaltype2 <- list()
 for (i in unique(meta$web)) {
 
   data1 <- meta %>%
-    filter(web == i & kingdom %in% c("animalia","Animalia") & drop_summary == 0) %>%
+    filter(web == i & kingdom == "Animalia" & drop_summary == 0) %>%
     dplyr::select(newest_node_name, all_of(selected_vars_categorical), all_of(selected_vars_numerical)) %>%
     mutate(size_select = ifelse(size_select <= 0.000000000001, 0.000000000001, size_select)) %>%
     drop_na() %>%
@@ -1171,7 +1148,7 @@ for (i in unique(meta$web)) {
 
   # Only need to predict for metazoans
   data2 <- meta %>%
-    filter(web == i & kingdom %in% c("animalia","Animalia") & drop_summary == 0) %>%
+    filter(web == i & kingdom == "Animalia" & drop_summary == 0) %>%
     dplyr::select(newest_node_name, all_of(selected_vars_categorical), all_of(selected_vars_numerical)) %>%
     mutate(size_select = ifelse(size_select <= 0.000000000001, 0.000000000001, size_select)) %>%
    drop_na() %>%
@@ -1334,7 +1311,9 @@ ggplot(stats_compare_inferred2 %>%
   facet_wrap(. ~ variable, scales = "free")
 
 
-### Fig6.pdf ----
+
+
+#### CURRENT FIGURE 7
 dat1 <- stats_compare_inferred2 %>%
   mutate(type = recode(type, fc2 = "Empirical web", inferred_mw = "Inferred metaweb", inferred_species = "Hypothetical realized web")) %>%
   filter(type != "Hypothetical realized web") %>%
@@ -1355,10 +1334,11 @@ dat2 <- stats_minmax %>%
   mutate(variable = factor(variable, levels = fig_names$new)) %>%
   filter(!variable %in% c("Size", "Mean deg."))
 temp <- dat1 %>% bind_rows(dat2)
+
 ggplot(temp) +
   geom_errorbar(aes(x = factor(web), ymin = min, ymax = max, color = type, group = 1), alpha = 0.5, width = 0.5, show.legend = F) +
-  geom_point(aes(x = factor(web), y = avg, color = type, group = 1), show.legend = T) +
-  geom_point(aes(x = web, y = value, color = type, group = type), size = 2, show.legend = T) +
+  geom_point(aes(x = factor(web), y = avg, color = type, group = 1), show.legend = F) +
+  geom_point(aes(x = web, y = value, color = type, group = type), size = 2, show.legend = F) +
   xlab("") +
   ylab("") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank()) +
@@ -1371,6 +1351,23 @@ ggplot(temp) +
 stats_joined <- stats_minmax %>%
   left_join(stats_emp, by = c("web", "variable")) %>%
   mutate(overlap = ifelse(value >= min & value <= max, "OVERLAP", "NO"))
+
+ggplot(stats_joined %>% filter(web != "loughhyne") %>%
+  mutate(web = jlookup(web, fig_web_names, matching_col = "old", new_values = "new")) %>%
+  mutate(web = factor(web, levels = fig_web_names$new)) %>%
+  mutate(variable = jlookup(variable, fig_names, matching_col = "old", new_values = "new")) %>%
+  filter(variable != "NA") %>%
+  mutate(variable = factor(variable, levels = fig_names$new))) +
+  geom_errorbar(aes(x = web, ymin = min, ymax = max), alpha = 0.3) +
+  geom_point(aes(x = web, y = mid), color = "black", size = 1, alpha = 0.3) +
+  geom_point(aes(x = web, y = value, color = overlap, fill = overlap, shape = overlap), size = 2, shape = 21, show.legend = FALSE, alpha = 0.8) +
+  scale_color_brewer(palette = "Set2") +
+  scale_fill_brewer(palette = "Set2") +
+  xlab("") +
+  ylab("") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank()) +
+  facet_wrap(. ~ variable, scales = "free", nrow = 3)
+
 
 
 ## Model error
@@ -1428,8 +1425,8 @@ tss_realized_web_stats <- c()
 for (i in webs_to_run) {
   web_fc2 <- as.data.frame(mstr_web_list[["fc2"]][[i]]) %>% distinct()
 
-  web_fc2[, 1] <- gsub("non-metazoan", "BASAL NODE", web_fc2[, 1])
-  web_fc2[, 2] <- gsub("non-metazoan", "BASAL NODE", web_fc2[, 2])
+  web_fc2[, 1] <- gsub("Non-metazoan", "BASAL NODE", web_fc2[, 1])
+  web_fc2[, 2] <- gsub("Non-metazoan", "BASAL NODE", web_fc2[, 2])
   colnames(web_fc2) <- c("res_new_node_name", "con_new_node_name")
 
   tax_names <- c(unique(as.character(as.matrix(web_fc2))))
@@ -1562,7 +1559,6 @@ temp <- as.data.frame(tss_realized_web_stats) %>%
   mutate(TSS = (Sensitivity + Specificity - 1)) %>%
   pivot_longer(cols = c(Accuracy, Sensitivity, Specificity, TSS)) %>%
   filter(name != "Accuracy")
-### Fig5.pdf 4x6inch ----
 ggplot(temp) +
   geom_density(data = temp %>% filter(type == "realized"), aes(x = value), color = "#619EFF") +
   geom_vline(data = temp %>% filter(type == "metaweb"), aes(xintercept = value), color = "#43BA38") +
@@ -1578,8 +1574,8 @@ tss_inferred_web_taxa <- c()
 for (i in webs_to_run) {
   web_fc2 <- mstr_web_list[["fc2"]][[i]]
 
-  web_fc2[, 1] <- gsub("non-metazoan", "BASAL NODE", web_fc2[, 1])
-  web_fc2[, 2] <- gsub("non-metazoan", "BASAL NODE", web_fc2[, 2])
+  web_fc2[, 1] <- gsub("Non-metazoan", "BASAL NODE", web_fc2[, 1])
+  web_fc2[, 2] <- gsub("Non-metazoan", "BASAL NODE", web_fc2[, 2])
 
   colnames(web_fc2) <- c("res_new_node_name", "con_new_node_name")
 
@@ -1642,6 +1638,7 @@ ggplot(data = tss_inferred_web_stats2, aes(x = web, fill = name, y = prop_links)
 
 
 #### COMPARE LINK DISTRIBUTIONS: Hypothetical realized node stats----
+
 hyp_node_stats <- c()
 for (i in names(web_list_inferred_species)) {
   for (j in 1:length(web_list_inferred_species[[i]])) {
@@ -1687,8 +1684,6 @@ all_node_comparison <- compare_inferred_nodes2 %>%
   mutate(web = factor(web, levels = fig_web_names$new)) %>%
   mutate(valuetype = recode(valuetype, `Empirical web_0` = "Empirical web", `Inferred metaweb_0` = "Inferred metaweb")) %>%
   mutate(valuetype = factor(valuetype, levels = c("Empirical web", "Inferred metaweb", "Hypothetical realized web")))
-
-### SFig5.pdf ----
 ggplot(all_node_comparison) +
   geom_boxplot(aes(x = valuetype, y = value, color = valuetype), show.legend = FALSE) +
   facet_grid(variable_long_name ~ web, scales = "free") +
@@ -1799,7 +1794,7 @@ fw_fl_std <- fw_std %>% dplyr::select(-trophic_level)
 fw_fl_top <- fw_top %>% dplyr::select(-trophic_level)
 fw_fl_bottom <- fw_bottom %>% dplyr::select(-trophic_level)
 
-runs <- 100
+runs <- 5
 
 meta_std <- infer_edgelist(fw_fl_std, col_taxon = "taxon")
 meta_std <- as.matrix(as.data.frame(meta_std) %>% filter(taxon_resource != taxon_consumer))
@@ -1897,7 +1892,7 @@ ggplot(temp_points) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank()) +
   facet_grid(variable ~ ., scales = "free")
 
-### Fig3.pdf ----
+
 ggplot(temp_points) +
   geom_errorbar(data = temp_bars, aes(x = type, ymin = lower, ymax = upper), color = "#609DFF") +
   geom_point(data = temp_points, aes(x = type, y = value), color = "#00BA39", alpha = 0.5) +
@@ -1933,8 +1928,6 @@ for (i in 1:nrow(temp_join)) {
 
 temp_join2 <- as.data.frame(cbind(temp_join, model_error = me_vals))
 temp_join2$model_error[is.nan(temp_join2$model_error)] <- 0
-
-### SFig4.pdf ----
 
 ggplot(temp_join2 %>%
   mutate(type = recode(type, bottom = "Bottom-heavy", std = "Standard", top = "Top-heavy")) %>%
@@ -2029,7 +2022,6 @@ p2 <- ggplot(temp, aes(x = type, y = sd)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.title = element_blank()) +
   facet_grid(variable ~ ., scales = "free")
 
-### Fig4.pdf ----
 p1 + p2
 
 
@@ -2097,15 +2089,13 @@ temp4 <- temp3 %>%
 
 # Make long
 bses <- meta %>%
-  filter(web == "ythanjacob" & drop_summary == 0 & kingdom %in% c("animalia","Animalia")) %>%
+  filter(web == "ythanjacob" & drop_summary == 0 & kingdom == "Animalia") %>%
   arrange(size_select) %>%
   pull(newest_node_name)
 bses <- unique(bses)
 
 temp5 <- temp4 %>%
   select(taxon_resource, taxon_consumer, interaction_empirical, interaction_inferred, interaction_globi, interaction_abdm) %>%
-  mutate_at(c("taxon_consumer", "taxon_resource"),trimws) %>%
-  mutate_at(c("taxon_consumer", "taxon_resource"),tolower) %>%
   mutate_at(c("interaction_empirical", "interaction_inferred", "interaction_globi", "interaction_abdm"), as.numeric) %>%
   pivot_longer(c(interaction_empirical, interaction_inferred, interaction_globi, interaction_abdm)) %>%
   filter(value == 1) %>%
@@ -2200,8 +2190,6 @@ ggplot() +
 
 temp7 <- temp4 %>%
   select(taxon_resource, taxon_consumer, interaction_empirical, interaction_inferred, interaction_globi, interaction_abdm) %>%
-  mutate_at(c("taxon_consumer", "taxon_resource"),trimws) %>%
-  mutate_at(c("taxon_consumer", "taxon_resource"),tolower) %>%
   mutate_at(c("interaction_empirical", "interaction_inferred", "interaction_globi", "interaction_abdm"), as.numeric) %>%
   filter(taxon_resource %in% bses) %>%
   filter(taxon_consumer %in% bses) %>%

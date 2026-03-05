@@ -1552,8 +1552,7 @@ chengjiang,,,Ambrolinevitus maximus,,maximus,Ambrolinevitus,Sulcavitidae,Hyolith
 chengjiang,,,Ambrolinevitus ventricosus,,ventricosus,Ambrolinevitus,Sulcavitidae,Hyolithida,Hyolitha,Hyolitha,Animalia,t_surf,f_susp,m_nmun,0,1,NA,NA,NA,NA,NA,16,s_medi,1
 chengjiang,,Burithes yunanensis,,Burithes yunanensis*,yunanensis,Burithes,Sulcavitidae,Hyolithida,Hyolitha,Hyolitha,Animalia,t_surf,f_susp,m_nmun,0,1,NA,NA,NA,NA,NA,35,s_medi,NA
 chengjiang,,,Burithes yunanensis,,yunanensis,Burithes,Sulcavitidae,Hyolithida,Hyolitha,Hyolitha,Animalia,t_surf,f_susp,m_nmun,0,1,NA,NA,NA,NA,NA,35,s_medi,NA
-chengjiang,,Linevitus optimus,,Linevitus opimus,opimus,Linevitus,Sulcavitidae,Hyolithida,Hyolitha,Hyolitha,Animalia,t_surf,f_susp,m_faun,1,1,NA,NA,NA,NA,NA,30,s_medi,NA
-chengjiang,,Linevitus optimus,,Linevitus optimus,opimus,Linevitus,Sulcavitidae,Hyolithida,Hyolitha,Hyolitha,Animalia,t_surf,f_susp,m_faun,1,1,NA,NA,NA,NA,NA,30,s_medi,NA
+chengjiang,,Linevitus opimus,,Linevitus optimus,opimus,Linevitus,Sulcavitidae,Hyolithida,Hyolitha,Hyolitha,Animalia,t_surf,f_susp,m_faun,1,1,NA,NA,NA,NA,NA,30,s_medi,NA
 kongsfjorden,,Chaetoderma sp.,,Chaetoderma,NA,Chaetoderma,Chaetodermatidae,Chaetodermatidae,Aplacophora,Mollusca,Animalia,t_shin,f_surf,m_faun,0,1,NA,NA,NA,80,0.09,NA,NA,NA
 kongsfjorden,,,Chaetoderma gen. sp.,,NA,Chaetoderma,Chaetodermatidae,Chaetodermatidae,Aplacophora,Mollusca,Animalia,t_shin,f_surf,m_faun,0,1,NA,NA,NA,80,0.09,NA,NA,NA
 loughhyne,,,Glycimeris_error,,Glycimeriserror,Glycimeris,Glycymerididae,Arcida,Bivalvia,Mollusca,Animalia,t_shin,f_susp,m_faun,0,1,NA,NA,NA,NA,0.0507,NA,NA,1
