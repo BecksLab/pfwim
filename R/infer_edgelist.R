@@ -12,8 +12,7 @@
 #' @param return_full_matrix indicate whether the function should return all taxon pairs with a value indicating how many trait rules were met, or whether the function should just return inferred interactions as an edgelist
 #' @param print_dropped_taxa print names of any taxa that have been removed
 #' @return edgelist showing resource and consumer.
-#' @examples
-#' TODO
+#' @examples TODO
 infer_edgelist <- function(data,
                            cat_combo_list,
                            col_taxon = "taxon",
