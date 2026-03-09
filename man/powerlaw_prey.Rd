@@ -2,24 +2,71 @@
 % Please edit documentation in R/downsample.R
 \name{powerlaw_prey}
 \alias{powerlaw_prey}
-\title{Infer edgelist using pfim fules blah blah blah}
+\title{Generate hypothetical realised webs using a power-law link distribution}
 \usage{
 powerlaw_prey(
   el,
   n_samp = 50,
-  func = function(r, M, y) exp(-r/(exp((y - 1) * (log(M)/(y)))))
+  y = 2.5,
+  func = function(r, M, y) exp(-r/(exp((y - 1) * (log(M)/y))))
 )
 }
 \arguments{
-\item{el}{edgelist showing resource and consumer. NB col1 = resource, col2 = consumer}
+\item{el}{Data frame or matrix containing a feasible consumer–resource
+edgelist. Column 1 = resource, Column 2 = consumer.}
 
-\item{n_samp}{number of samples}
+\item{n_samp}{Integer. Number of replicate realised webs to generate. Default = 50.}
 
-\item{func}{power-law distribution.}
+\item{y}{Numeric. Parameter controlling the shape of the power-law distribution.
+Default = 2.5.}
+
+\item{func}{Function. Probability function of the in-degree \code{r}, total prey
+richness \code{M}, and parameter \code{y}. Must return a numeric value > 0.
+Default:
+\code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.}
 }
 \value{
-pruned edgelist.
+A list of length \code{n_samp}, where each element is a realised
+food web represented as a 2-column matrix with columns:
+\describe{
+\item{res_node_node_name_inferred}{Resource taxon name}
+\item{con_node_node_name_inferred}{Consumer taxon name}
+}
 }
 \description{
-valuable for num_size_rule as an example? \code{function(res_size, con_size) {ifelse(res_size <= con_size, 1, 0)}}
+PFIM generates a series of replicate hypothetical realised food webs by
+reducing the feasible links for each consumer to match a target link
+distribution. The default distribution is a mixed exponential–power law
+in-degree distribution as described in Shaw (2024) and Roopnarine (2006).
+}
+\details{
+For each consumer in \code{el}, the number of prey links in a realised
+web is sampled according to the distribution defined by \code{func}. The sampled
+prey are drawn randomly without exceeding the maximum feasible prey for that
+consumer.
+}
+\examples{
+# Infer a minimal edgelist
+edgelist <- infer_edgelist(
+  data = data.frame(
+    species = c("plankton","plant_1","plant_2","cod","rat","deer"),
+    feeding = c("primary","primary","primary","secondary","secondary","secondary")
+  ),
+  cat_combo_list = data.frame(
+    trait_type_resource = c("feeding","feeding","feeding"),
+    trait_resource = c("primary","primary","primary"),
+    trait_type_consumer = c("feeding","feeding","feeding"),
+    trait_consumer = c("secondary","secondary","secondary")
+  ),
+  col_taxon = "species",
+  certainty_req = "all"
+)
+
+# Generate realized webs
+webs <- powerlaw_prey(edgelist, n_samp = 3, y = 2.5)
+
+}
+\references{
+Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. \emph{Preprint}.
+Roopnarine, P. (2006). \emph{Palaeoecology and food-web structure in fossil communities}.
 }

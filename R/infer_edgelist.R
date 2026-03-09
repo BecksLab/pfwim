@@ -51,6 +51,9 @@
 #' \item{numeric}{Minimum number of matching trait types required}
 #' }
 #'
+#' @param allow_self Logical. If TRUE, allows interactions where the resource
+#' and consumer are the same taxon (self-loops). Default is FALSE.
+#'
 #' @param return_full_matrix Logical. If `TRUE`, returns the full matrix of
 #' taxon pairs and the number of matching trait rules. If `FALSE`, returns
 #' only inferred interactions as an edgelist.
@@ -107,7 +110,7 @@ infer_edgelist <- function(data,
                            ...) {
 
   # Hide "no visible binding for global variable" comment
-  . <- Var1 <- Var2 <- pres_sum <- size_consumer <- size_resource <- taxon_consumer <- taxon_resource <- trait <- trait_type <- trait_type_consumer <- trait_type_interaction <- trait_type_pres <- trait_value_pres <- NULL
+  . <- Var1 <- Var2 <- pres_sum <- size_consumer <- size_resource <- taxon_consumer <- taxon_resource <- trait <- trait_type <- trait_type_consumer <- trait_type_interaction <- trait_type_pres <- trait_value_pres <- trait_type_resource <- trait_consumer <- NULL
 
   # Check inputs
 

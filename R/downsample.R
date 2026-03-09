@@ -15,8 +15,12 @@
 #' @keywords internal
 #'
 #' @examples
-#' # Sample 10 integers from 1:100 using default distribution
-#' sample_pdf(M = 100, n_samp = 10)
+#' # Generate 3 replicate webs from a small edgelist
+#' edgelist <- data.frame(
+#'   res_node_node_name_inferred = c("plankton","plant_1","plant_2"),
+#'   con_node_node_name_inferred = c("cod","rat","deer")
+#' )
+#' webs <- powerlaw_prey(edgelist, n_samp = 3, y = 2.5)
 sample_pdf <- function(M = 100,
                        y = 2.5,
                        func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y)))),
@@ -62,12 +66,24 @@ sample_pdf <- function(M = 100,
 #' Roopnarine, P. (2006). *Palaeoecology and food-web structure in fossil communities*.
 #'
 #' @examples
-#' # Generate 5 replicate webs with default distribution
-#' webs <- powerlaw_prey(interactions, n_samp = 5, y = 2.5)
+#' # Infer a minimal edgelist
+#' edgelist <- infer_edgelist(
+#'   data = data.frame(
+#'     species = c("plankton","plant_1","plant_2","cod","rat","deer"),
+#'     feeding = c("primary","primary","primary","secondary","secondary","secondary")
+#'   ),
+#'   cat_combo_list = data.frame(
+#'     trait_type_resource = c("feeding","feeding","feeding"),
+#'     trait_resource = c("primary","primary","primary"),
+#'     trait_type_consumer = c("feeding","feeding","feeding"),
+#'     trait_consumer = c("secondary","secondary","secondary")
+#'   ),
+#'   col_taxon = "species",
+#'   certainty_req = "all"
+#' )
 #'
-#' # Use a custom distribution function
-#' custom_func <- function(r, M, y) (M - r + 1)^(-y)
-#' webs_custom <- powerlaw_prey(interactions, n_samp = 5, y = 2.0, func = custom_func)
+#' # Generate realized webs
+#' webs <- powerlaw_prey(edgelist, n_samp = 3, y = 2.5)
 #'
 #' @export
 powerlaw_prey <- function(el,

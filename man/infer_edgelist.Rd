@@ -58,6 +58,9 @@ interaction to be considered feasible.
 \item{numeric}{Minimum number of matching trait types required}
 }}
 
+\item{allow_self}{Logical. If TRUE, allows interactions where the resource
+and consumer are the same taxon (self-loops). Default is FALSE.}
+
 \item{return_full_matrix}{Logical. If \code{TRUE}, returns the full matrix of
 taxon pairs and the number of matching trait rules. If \code{FALSE}, returns
 only inferred interactions as an edgelist.}
