@@ -1,0 +1,85 @@
+---
+title: "PFIM: Paleo Food-Web Inference Model"
+author: "Your Name"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PFIM Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+This vignette demonstrates how to use the PFIM package to infer
+consumer–resource interactions from trait data, and generate
+hypothetical realized food webs using a power-law link distribution.
+
+This workflow demonstrates:
+
+1. Inferring feasible interactions with `infer_edgelist()`.
+2. Downsampling interactions into hypothetical realized webs with `powerlaw_prey()`.
+3. Customizing link distributions via the `func` argument.
+
+Users can now use these realised webs for **network analyses**,  
+simulation studies, or **comparisons to fossil and modern food webs**.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+library(pfim.R)
+
+# Load example data included in the package
+data("traits", package = "pfim.R")
+data("feeding_rules", package = "pfim.R")
+data("interactions", package = "pfim.R")  # internal edgelist for tests
+```
+
+## Infer Edgelist
+
+Infer interactions using categorical trait rules
+
+```{r infer-edgelist}
+
+edgelist <- infer_edgelist(
+  data = traits,
+  cat_combo_list = feeding_rules,
+  col_taxon = "species",
+  certainty_req = "all",
+  hide_printout = TRUE
+)
+
+head(edgelist)
+```
+
+## Generate Realised Webs with Power-Law
+
+Generate 5 hypothetical realised webs
+
+```{r powerlaw-webs}
+realised_webs <- powerlaw_prey(
+  el = edgelist,
+  n_samp = 5,
+  y = 2.5
+)
+
+# Inspect first realised web
+realised_webs[[1]]
+```
+
+## Customizing the Power-Law Distribution
+
+```{r custom-func}
+# Define a custom in-degree distribution function
+custom_func <- function(r, M, y) (M - r + 1)^(-y)
+
+realized_webs_custom <- powerlaw_prey(
+  el = edgelist,
+  n_samp = 5,
+  y = 2,
+  func = custom_func
+)
+
+# First custom web
+realized_webs_custom[[1]]
+```
+
