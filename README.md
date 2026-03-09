@@ -1,25 +1,14 @@
----
-title: "PFIM: Paleo Food-web Inference Model"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{PFIM: Paleo Food-web Inference Model}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
 # PFIM: Paleo Food-web Inference Model
 
-`PFIM` is an R package for **inferring predator–prey interactions** using trait-based 
-rules and generating **hypothetical realized food webs**. It implements 
+`PFIM` is an R package for inferring predator–prey interactions using trait-based 
+rules and generating hypothetical realised food webs. It implements 
 the **Paleo Food-web Inference Model (Shaw 2024)** and includes tools for categorical 
 trait matching, numerical predator–prey size rules, and power-law downsampling of 
 realised webs.
 
----
-
 ## Installation
 
-```{r eval=FALSE}
+```
 # Install from CRAN (when available)
 install.packages("pfim.R")
 
@@ -28,9 +17,9 @@ install.packages("pfim.R")
 devtools::install_github("BecksLab/pfim.R")
 ```
 
-## Load Example Data
+## Load Example Data
 
-```{r eval=FALSE}
+```
 library(pfim.R)
 
 # Trait data
@@ -47,8 +36,7 @@ head(feeding_rules)
 
 Use `infer_edgelist()` to infer feasible interactions:
 
-```{r eval=FALSE}
-
+```
 edgelist <- infer_edgelist(
   data = traits,
   cat_combo_list = feeding_rules,
@@ -59,15 +47,13 @@ edgelist <- infer_edgelist(
 
 # Show first few interactions
 head(edgelist)
-
 ```
 
-## Generate hypothetical realised webs
+## Generate hypothetical realised webs
 
 Create a series of hypothetical webs using `powerlaw_prey()`
 
-```{r eval=FALSE}
-
+```
 webs <- powerlaw_prey(
   el = edgelist,
   n_samp = 5,
@@ -76,7 +62,6 @@ webs <- powerlaw_prey(
 
 # Inspect first web
 webs[[1]]
-
 ```
 
 Each element of `webs` is a matrix representing a realised food web generated 

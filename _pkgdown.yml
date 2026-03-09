@@ -1,4 +1,8 @@
 url: https://beckslab.github.io/pfim.R/
 template:
   bootstrap: 5
-
+  bootswatch: journal
+  bslib:
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#306cc9"
