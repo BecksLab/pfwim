@@ -2,16 +2,22 @@
 
 ## Authors
 
-- **First Last**. Author, maintainer.
+- **Jack Shaw**. Author, maintainer.
+
+- **Tanya Strydom**. Author. [](https://orcid.org/0000-0001-6067-1349)
 
 ## Citation
 
-Last F (2026). *pfim.R: What the Package Does (One Line, Title Case)*. R
-package version 0.0.0.9000, <https://beckslab.github.io/pfim.R/>.
+Source:
+[`DESCRIPTION`](https://github.com/BecksLab/pfim.R/blob/main/DESCRIPTION)
+
+Shaw J, Strydom T (2026). *pfim.R: What the Package Does (One Line,
+Title Case)*. R package version 0.0.0.9000,
+<https://beckslab.github.io/pfim.R/>.
 
     @Manual{,
       title = {pfim.R: What the Package Does (One Line, Title Case)},
-      author = {First Last},
+      author = {Jack Shaw and Tanya Strydom},
       year = {2026},
       note = {R package version 0.0.0.9000},
       url = {https://beckslab.github.io/pfim.R/},
