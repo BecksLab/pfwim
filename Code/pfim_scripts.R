@@ -90,7 +90,7 @@ calc_node_tl_std <- function(fw) {
 calc_node_tl_sw <- function(web) {
   if (length(web) > 1) {
 
- 
+
 
     web <- as.matrix(web)
     rownames(web) <- colnames(web)
@@ -103,27 +103,27 @@ calc_node_tl_sw <- function(web) {
     )
     paths_prey[is.infinite(paths_prey)] <- NA
     shortest_paths <- suppressWarnings(as.matrix(apply(paths_prey, 1, min, na.rm = TRUE)))
-    in_deg <- apply(web, 2, sum) 
-    out_deg <- apply(web, 1, sum) 
+    in_deg <- apply(web, 2, sum)
+    out_deg <- apply(web, 1, sum)
 
 
     # Shortest TL
-    sTL <- 1 + shortest_paths 
-    
+    sTL <- 1 + shortest_paths
+
 
     S <- dim(web)[1]
 
     # Creating the matrix
     short_TL_matrix <- matrix(NA, S, S)
-    prey_ave <- rep(NA, S) 
+    prey_ave <- rep(NA, S)
     chain_ave <- rep(NA, S)
     #
     for (j in 1:S) {
       for (i in 1:S) {
-        lij <- web[i, j] 
-        prey_ave[j] <- 1 / in_deg[j] 
-        short_TL_matrix[i, j] <- lij * sTL[i] 
-     
+        lij <- web[i, j]
+        prey_ave[j] <- 1 / in_deg[j]
+        short_TL_matrix[i, j] <- lij * sTL[i]
+
       }
     }
 
@@ -131,7 +131,7 @@ calc_node_tl_sw <- function(web) {
     prey_ave[which(prey_ave == -Inf)] <- 0
 
     short_TL_matrix[is.nan(short_TL_matrix)] <- 0
-   
+
 
     short_TL_matrix[which(short_TL_matrix == Inf)] <- 0
     short_TL_matrix[which(short_TL_matrix == -Inf)] <- 0
@@ -160,7 +160,7 @@ calc_node_tl_all <- function(fw, method = NULL) {
     all_tls <- cbind(
       `standard` = calc_node_tl_std(fw),
       `network` = calc_node_tl_nw(fw),
-    
+
       `short-weighted` = calc_node_tl_sw(fw)
     )
   } else {
@@ -169,7 +169,7 @@ calc_node_tl_all <- function(fw, method = NULL) {
     } else if (method == "short-weighted") {
       all_tls <- calc_node_tl_sw(fw)
 
-    
+
     } else if (method == "network") {
       all_tls <- calc_node_tl_nw(fw)
     } else {
