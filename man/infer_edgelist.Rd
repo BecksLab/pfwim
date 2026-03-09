@@ -43,6 +43,3 @@ edgelist showing resource and consumer.
 \description{
 valuable for num_size_rule as an example? \code{function(res_size, con_size) {ifelse(res_size <= con_size, 1, 0)}}
 }
-\examples{
-TODO
-}

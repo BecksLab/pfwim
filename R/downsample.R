@@ -5,7 +5,6 @@
 #' @param func power law.
 #' @param n_samp number of samples
 #' @return TODO
-#' @examples TODO
 sample_pdf <- function(M = 100,
                        y = 2.5,
                        func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / (y))))),
@@ -30,7 +29,6 @@ sample_pdf <- function(M = 100,
 #' @param n_samp number of samples
 #' @param func power-law distribution.
 #' @return pruned edgelist.
-#' @examples TODO
 powerlaw_prey <- function(el,
                           n_samp = 50,
                           func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / (y)))))) {

@@ -28,6 +28,3 @@ TODO
 Internal powerlaw function used for downsampling metawebs
 #'
 }
-\examples{
-TODO
-}
