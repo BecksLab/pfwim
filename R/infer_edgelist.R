@@ -203,9 +203,12 @@ infer_edgelist <- function(data,
   for (i in trait_cats_cons) {
     col_combo_list_mini <- cat_combo_list %>% dplyr::filter(trait_type_consumer == i)
 
-    res_taxa <- fd %>% dplyr::select(c(col_taxon, unique(col_combo_list_mini[, c("trait_type_resource")])))
+    res_cols <- unique(col_combo_list_mini$trait_type_resource)
+
+    res_taxa <- fd %>%
+      dplyr::select(dplyr::all_of(c(col_taxon, res_cols)))
     con_taxa <- fd %>%
-      dplyr::select(c(col_taxon, i)) %>%
+      dplyr::select(dplyr::all_of(c(col_taxon, i))) %>%
       filter_all(any_vars(!is.na(.)))
     con_taxa <- con_taxa[Reduce(`&`, lapply(con_taxa, function(x) !(is.na(x) | x == ""))), ]
 
@@ -219,16 +222,56 @@ infer_edgelist <- function(data,
       tidyr::pivot_longer(-dplyr::all_of(col_taxon), names_to = "trait_type", values_to = "trait") %>%
       dplyr::filter(trait != "primary")
 
-    crossing_taxa <- tidyr::crossing(as.data.frame(res_taxa_longer) %>% setNames(paste0(names(.), "_resource")), con_taxa_longer %>% setNames(paste0(names(.), "_consumer"))) %>%
-      dplyr::left_join(col_combo_list_mini[, c("trait_type_resource", "trait_type_consumer", "trait_consumer")] %>% dplyr::mutate(trait_type_pres = 1), by = c("trait_type_resource", "trait_type_consumer", "trait_consumer"))
+    # create crossing table
+    crossing_taxa <- tidyr::crossing(
+      res_taxa_longer %>% dplyr::rename_with(~paste0(.x, "_resource")),
+      con_taxa_longer %>% dplyr::rename_with(~paste0(.x, "_consumer"))
+    )
+
+    # first join (trait type feasibility)
+    crossing_taxa <- dplyr::left_join(
+      crossing_taxa,
+      col_combo_list_mini %>%
+        dplyr::select(trait_type_resource, trait_type_consumer, trait_consumer) %>%
+        dplyr::mutate(trait_type_pres = 1),
+      by = c(
+        "trait_type_resource",
+        "trait_type_consumer",
+        "trait_consumer"
+      ),
+      relationship = "many-to-many"
+    )
+
+    # filter valid types
     crossing_taxa <- crossing_taxa %>%
       dplyr::filter(trait_type_pres == 1) %>%
-      dplyr::distinct() %>%
-      dplyr::left_join(col_combo_list_mini %>% dplyr::mutate(trait_value_pres = 1), by = c("trait_type_resource", "trait_type_consumer", "trait_consumer", "trait_resource"))
+      dplyr::distinct()
+
+    # second join (trait value feasibility)
+    crossing_taxa <- dplyr::left_join(
+      crossing_taxa,
+      col_combo_list_mini %>%
+        dplyr::mutate(trait_value_pres = 1),
+      by = c(
+        "trait_type_resource",
+        "trait_type_consumer",
+        "trait_consumer",
+        "trait_resource"
+      ),
+      relationship = "many-to-many"
+    )
+
+    # final filtering
     crossing_taxa <- crossing_taxa %>%
       dplyr::filter(trait_value_pres == 1) %>%
-      dplyr::mutate(trait_type_interaction = i)
-    crossing_taxa <- crossing_taxa[, c("taxon_resource", "taxon_consumer", "trait_type_interaction", "trait_value_pres")]
+      dplyr::mutate(trait_type_interaction = i) %>%
+      dplyr::select(
+        taxon_resource,
+        taxon_consumer,
+        trait_type_interaction,
+        trait_value_pres
+      )
+
 
     fw_match_traits <- rbind(fw_match_traits, crossing_taxa)
     if (!hide_printout) print(i)
