@@ -2,7 +2,7 @@
 % Please edit documentation in R/infer_edgelist.R
 \name{infer_edgelist}
 \alias{infer_edgelist}
-\title{Infer edgelist using pfim fules blah blah blah}
+\title{Infer trophic interactions using PFIM trait rules}
 \usage{
 infer_edgelist(
   data,
@@ -12,6 +12,7 @@ infer_edgelist(
   cat_trait_types = NULL,
   num_size_rule = NULL,
   certainty_req = "all",
+  allow_self = TRUE,
   return_full_matrix = FALSE,
   print_dropped_taxa = FALSE,
   hide_printout = FALSE,
@@ -19,27 +20,97 @@ infer_edgelist(
 )
 }
 \arguments{
-\item{data}{dataframe object containing species and relevant traits.}
+\item{data}{A \code{data.frame} containing taxa and associated trait values.
+Each row represents a taxon and each column represents a trait.}
 
-\item{cat_combo_list}{dataframe containing trait rules}
+\item{cat_combo_list}{A \code{data.frame} defining allowed consumer–resource
+trait combinations. Must contain columns:
+\describe{
+\item{trait_type_resource}{Resource trait category}
+\item{trait_resource}{Resource trait value}
+\item{trait_type_consumer}{Consumer trait category}
+\item{trait_consumer}{Consumer trait value}
+}}
 
-\item{col_taxon}{indicate column containing taxon names.}
+\item{col_taxon}{Character string indicating the column containing taxon
+names in \code{data}. Default \code{"taxon"}.}
 
-\item{col_num_size}{use "size_select" if using a numerical prey-pred size rule indicate column containing numerical size values}
+\item{col_num_size}{Optional column name containing numerical size values
+for taxa. Used when applying a numeric predator–prey size rule.}
 
-\item{cat_trait_types}{if you only want to use a subset of life habit columns enter column names as vector otherwise}
+\item{cat_trait_types}{Optional character vector specifying a subset of
+categorical trait columns to use. If \code{NULL}, all traits appearing in
+\code{cat_combo_list} are used.}
 
-\item{num_size_rule}{function defining pred-prey size rule, e.g. as long as predator is equal to or larger than prey then an interaction is feasible}
+\item{num_size_rule}{Optional function defining the predator–prey size
+feasibility rule. The function must accept two numeric vectors:
+\verb{(resource_size, consumer_size)} and return \code{1} for feasible interactions
+and \code{0} otherwise.
 
-\item{certainty_req}{state whether an interaction must meet all trait rules or the minimum number of rules that must be met}
+Example:
 
-\item{return_full_matrix}{indicate whether the function should return all taxon pairs with a value indicating how many trait rules were met, or whether the function should just return inferred interactions as an edgelist}
+\code{function(res_size, con_size) { ifelse(res_size <= con_size, 1, 0) }}}
 
-\item{print_dropped_taxa}{print names of any taxa that have been removed}
+\item{certainty_req}{Defines how many trait rules must be satisfied for an
+interaction to be considered feasible.
+\describe{
+\item{"all"}{All trait types must match}
+\item{numeric}{Minimum number of matching trait types required}
+}}
+
+\item{return_full_matrix}{Logical. If \code{TRUE}, returns the full matrix of
+taxon pairs and the number of matching trait rules. If \code{FALSE}, returns
+only inferred interactions as an edgelist.}
+
+\item{print_dropped_taxa}{Logical. If \code{TRUE}, prints taxa that were removed
+from the inferred food web because they have no feasible interactions.}
+
+\item{hide_printout}{Logical. If \code{TRUE}, suppresses progress messages.}
+
+\item{...}{Additional arguments reserved for future extensions.}
 }
 \value{
-edgelist showing resource and consumer.
+If \code{return_full_matrix = FALSE}:
+
+A two-column matrix containing:
+\describe{
+\item{taxon_resource}{Resource taxon}
+\item{taxon_consumer}{Consumer taxon}
+}
+
+If \code{return_full_matrix = TRUE}:
+
+A matrix containing all taxon pairs and the number of trait rules satisfied.
 }
 \description{
-valuable for num_size_rule as an example? \code{function(res_size, con_size) {ifelse(res_size <= con_size, 1, 0)}}
+Infers a consumer–resource edgelist using categorical trait matching rules
+based on the PFIM (Paleo Food-web Inference Model) described in
+Shaw (2024). Interactions are inferred by comparing resource and consumer
+trait combinations against a set of allowed trait rules.
+}
+\details{
+Trait matching is performed across all trait types present in
+\code{cat_combo_list}. For each potential taxon pair, the number of satisfied
+trait rules is calculated. An interaction is inferred when the number of
+satisfied rules meets the required threshold defined by \code{certainty_req}.
+
+Optionally, a numerical predator–prey size rule can also be applied using
+\code{num_size_rule}.
+
+The function evaluates all possible consumer–resource taxon pairs and
+determines interaction feasibility using categorical trait rules and,
+optionally, a numerical size constraint. The final edgelist includes only
+interactions meeting the certainty requirement.
+}
+\examples{
+infer_edgelist(
+  data = traits,
+  cat_combo_list = feeding_rules,
+  col_taxon = "species",
+  certainty_req = "all"
+)
+
+}
+\references{
+Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. \emph{Preprint}.
 }
