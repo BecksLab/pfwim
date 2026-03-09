@@ -1,69 +1,118 @@
-#' Internal powerlaw function used for downsampling metawebs
-#' #'
-#' @param M richness.
-#' @param y parameter
-#' @param func power law.
-#' @param n_samp number of samples
-#' @return TODO
+#' Sample integers according to a discrete probability distribution
+#'
+#' Generates random draws from 1:M with probabilities defined by a
+#' user-specified function (default is the PFIM mixed exponential–power law
+#' distribution).
+#'
+#' @param M Integer. Maximum value to sample (upper bound of 1:M).
+#' @param y Numeric. Parameter controlling the distribution shape.
+#' @param func Function. Probability function of r (1:M), M, and y.
+#'   Default is the PFIM exponential–power law function:
+#'   \code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.
+#' @param n_samp Integer. Number of random draws.
+#'
+#' @return Integer vector of length \code{n_samp} with values in 1:M.
+#' @keywords internal
+#'
+#' @examples
+#' # Sample 10 integers from 1:100 using default distribution
+#' sample_pdf(M = 100, n_samp = 10)
 sample_pdf <- function(M = 100,
                        y = 2.5,
-                       func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / (y))))),
+                       func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y)))),
                        n_samp = 100) {
-  row <- c()
-  for (i in 1:M) {
-    row <- c(row, func(i, M, y))
-  }
-  row2 <- as.data.frame(row)
-  
-  ar <- sum(row)
-  row <- row / ar
-  
-  return(sample(1:M, n_samp, replace = T, prob = row))
+
+  probs <- sapply(1:M, func, M = M, y = y)
+  probs <- probs / sum(probs)
+
+  sample(1:M, n_samp, replace = TRUE, prob = probs)
 }
 
-#' Infer edgelist using pfim fules blah blah blah
-#' 
-#' valuable for num_size_rule as an example? `function(res_size, con_size) {ifelse(res_size <= con_size, 1, 0)}`
+#' Generate hypothetical realised webs using a power-law link distribution
 #'
-#' @param el edgelist showing resource and consumer. NB col1 = resource, col2 = consumer
-#' @param n_samp number of samples
-#' @param func power-law distribution.
-#' @return pruned edgelist.
+#' PFIM generates a series of replicate hypothetical realised food webs by
+#' reducing the feasible links for each consumer to match a target link
+#' distribution. The default distribution is a mixed exponential–power law
+#' in-degree distribution as described in Shaw (2024) and Roopnarine (2006).
+#'
+#' @param el Data frame or matrix containing a feasible consumer–resource
+#'   edgelist. Column 1 = resource, Column 2 = consumer.
+#' @param n_samp Integer. Number of replicate realised webs to generate. Default = 50.
+#' @param y Numeric. Parameter controlling the shape of the power-law distribution.
+#'   Default = 2.5.
+#' @param func Function. Probability function of the in-degree `r`, total prey
+#'   richness `M`, and parameter `y`. Must return a numeric value > 0.
+#'   Default:
+#'   \code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.
+#'
+#' @return A list of length \code{n_samp}, where each element is a realised
+#'   food web represented as a 2-column matrix with columns:
+#'   \describe{
+#'     \item{res_node_node_name_inferred}{Resource taxon name}
+#'     \item{con_node_node_name_inferred}{Consumer taxon name}
+#'   }
+#'
+#' @details For each consumer in `el`, the number of prey links in a realised
+#' web is sampled according to the distribution defined by `func`. The sampled
+#' prey are drawn randomly without exceeding the maximum feasible prey for that
+#' consumer.
+#'
+#' @references
+#' Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. *Preprint*.
+#' Roopnarine, P. (2006). *Palaeoecology and food-web structure in fossil communities*.
+#'
+#' @examples
+#' # Generate 5 replicate webs with default distribution
+#' webs <- powerlaw_prey(interactions, n_samp = 5, y = 2.5)
+#'
+#' # Use a custom distribution function
+#' custom_func <- function(r, M, y) (M - r + 1)^(-y)
+#' webs_custom <- powerlaw_prey(interactions, n_samp = 5, y = 2.0, func = custom_func)
+#'
+#' @export
 powerlaw_prey <- function(el,
                           n_samp = 50,
-                          func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / (y)))))) {
-  
+                          y = 2.5,
+                          func = function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))) {
+
   con_node_node_name_inferred <- NULL
-  
+
+  # Ensure input is a data frame
   edgelist <- as.data.frame(el)
   colnames(edgelist) <- c("res_node_node_name_inferred", "con_node_node_name_inferred")
-  
+
+  # Initialize list to store realised webs
   web_list <- lapply(1:n_samp, matrix, data = NA, nrow = 0, ncol = 2)
-  
+
+  # Loop over each consumer
   for (i in unique(edgelist$con_node_node_name_inferred)) {
+
     min <- edgelist %>% dplyr::filter(con_node_node_name_inferred == i)
     min <- as.data.frame(min)
-    rich <- as.numeric(as.character(length(unique(min[, c("res_node_node_name_inferred")]))))
-    
-    t <- sample_pdf(M = rich, n_samp = n_samp)
-    
-    names(t) <- rep(i, length(t))
-    
-    for (j in 1:length(t)) {
-      
-      # Currently taking upper bound
-      min2 <- min %>% sample_n(min(rich, t[[j]]))
-      
-      
-      
+
+    # Number of feasible prey for this consumer
+    M_consumer <- length(unique(min$res_node_node_name_inferred))
+
+    # Sample in-degree (number of prey) for n_samp webs
+    sampled_degree <- sample_pdf(
+      M = M_consumer,
+      y = y,
+      func = func,
+      n_samp = n_samp
+    )
+
+    names(sampled_degree) <- rep(i, length(sampled_degree))
+
+    # Draw sampled prey for each replicate
+    for (j in seq_along(sampled_degree)) {
+      min2 <- min %>% dplyr::sample_n(min(M_consumer, sampled_degree[[j]]))
       web_list[[j]] <- rbind(web_list[[j]], min2)
     }
   }
-  
+
+  # Convert each web to matrix and remove NAs
   web_list <- lapply(web_list, as.matrix)
   web_list <- lapply(web_list, na.omit)
-  
-  
-  
+
   return(web_list)
 }
