@@ -20,6 +20,7 @@
 
 # RStudio files
 .Rproj.user/
+.Rproj.user
 
 # produced vignettes
 vignettes/*.html
@@ -50,5 +51,6 @@ rsconnect/
 
 # MacOS nonsense
 .DS_Store
-.Rproj.user
+
+# quarto
 .quarto
