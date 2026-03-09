@@ -50,8 +50,64 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-What the package does (one paragraph).
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="pfim-paleo-food-web-inference-model">PFIM: Paleo Food-web Inference Model<a class="anchor" aria-label="anchor" href="#pfim-paleo-food-web-inference-model"></a>
+</h1></div>
+<p><code>PFIM</code> is an R package for inferring predator–prey interactions using trait-based rules and generating hypothetical realised food webs. It implements the <strong>Paleo Food-web Inference Model (Shaw 2024)</strong> and includes tools for categorical trait matching, numerical predator–prey size rules, and power-law downsampling of realised webs.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<pre><code><span><span class="co"># Install from CRAN (when available)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pfim.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or install development version from GitHub</span></span>
+<span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BecksLab/pfim.R"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="load-example-data">Load Example Data<a class="anchor" aria-label="anchor" href="#load-example-data"></a>
+</h2>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beckslab.github.io/pfim.R/">pfim.R</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Trait data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"traits"</span>, package <span class="op">=</span> <span class="st">"pfim.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Trait combination rules</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"feeding_rules"</span>, package <span class="op">=</span> <span class="st">"pfim.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">feeding_rules</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="inferring-a-consumerresource-edgelist">Inferring a consumer–resource edgelist<a class="anchor" aria-label="anchor" href="#inferring-a-consumerresource-edgelist"></a>
+</h2>
+<p>Use <code><a href="reference/infer_edgelist.html">infer_edgelist()</a></code> to infer feasible interactions:</p>
+<pre><code><span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/infer_edgelist.html">infer_edgelist</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">traits</span>,</span>
+<span>  cat_combo_list <span class="op">=</span> <span class="va">feeding_rules</span>,</span>
+<span>  col_taxon <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span>  certainty_req <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  allow_self <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Show first few interactions</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="generate-hypothetical-realised-webs">Generate hypothetical realised webs<a class="anchor" aria-label="anchor" href="#generate-hypothetical-realised-webs"></a>
+</h2>
+<p>Create a series of hypothetical webs using <code><a href="reference/powerlaw_prey.html">powerlaw_prey()</a></code></p>
+<pre><code><span><span class="va">webs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/powerlaw_prey.html">powerlaw_prey</a></span><span class="op">(</span></span>
+<span>  el <span class="op">=</span> <span class="va">edgelist</span>,</span>
+<span>  n_samp <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  y <span class="op">=</span> <span class="fl">2.5</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Inspect first web</span></span>
+<span><span class="va">webs</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre>
+<p>Each element of <code>webs</code> is a matrix representing a realised food web generated from the inferred interactions</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
