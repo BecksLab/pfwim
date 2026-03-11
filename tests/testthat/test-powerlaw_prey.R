@@ -15,11 +15,11 @@ test_that("powerlaw_prey returns list of webs", {
 
 })
 
-test_that("each replicate web is matrix", {
+test_that("each replicate web is a data.frame", {
 
   webs <- powerlaw_prey(edgelist, n_samp = 5)
 
-  expect_true(all(sapply(webs, is.matrix)))
+  expect_true(all(sapply(webs, is.data.frame)))
 
 })
 

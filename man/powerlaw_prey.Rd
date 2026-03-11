@@ -26,11 +26,11 @@ Default:
 \code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.}
 }
 \value{
-A list of length \code{n_samp}, where each element is a realised
-food web represented as a 2-column matrix with columns:
+A list of length \code{n_samp}. Each element is a data frame
+representing a realised food web edgelist with two columns:
 \describe{
-\item{res_node_node_name_inferred}{Resource taxon name}
-\item{con_node_node_name_inferred}{Consumer taxon name}
+\item{resource}{Resource species}
+\item{consumer}{Consumer species}
 }
 }
 \description{
