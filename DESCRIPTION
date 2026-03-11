@@ -1,7 +1,7 @@
 Package: pfim
 Title: Food Web Construction for paleo communities
 Version: 0.0.0.9000
-Authors@R: c(person("Jack", "Shaw", role = c("aut", "cre"), email = "email@gmail.com"),
+Authors@R: c(person("Jack", "Shaw", role = c("aut", "cre"), email = "Jack.Shaw@colorado.edu", comment = c(ORCID = "0000-0002-2725-2334")),
              person("Tanya", "Strydom", role = "aut", comment = c(ORCID = "0000-0001-6067-1349"))
             )
 Description: R tools for reconstructing paleo food webs from species traits and size rules.
