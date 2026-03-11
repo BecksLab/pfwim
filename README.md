@@ -10,11 +10,11 @@ realised webs.
 
 ```
 # Install from CRAN (when available)
-install.packages("pfim.R")
+install.packages("pfim")
 
 # Or install development version from GitHub
 # install.packages("devtools")
-devtools::install_github("BecksLab/pfim.R")
+devtools::install_github("BecksLab/pfim")
 ```
 
 ## Load Example Data
@@ -23,10 +23,10 @@ devtools::install_github("BecksLab/pfim.R")
 library(pfim.R)
 
 # Trait data
-data("traits", package = "pfim.R")
+data("traits", package = "pfim")
 
 # Trait combination rules
-data("feeding_rules", package = "pfim.R")
+data("feeding_rules", package = "pfim")
 
 head(traits)
 head(feeding_rules)
