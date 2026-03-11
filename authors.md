@@ -11,12 +11,12 @@
 Source:
 [`DESCRIPTION`](https://github.com/BecksLab/pfim.R/blob/main/DESCRIPTION)
 
-Shaw J, Strydom T (2026). *pfim.R: What the Package Does (One Line,
-Title Case)*. R package version 0.0.0.9000,
+Shaw J, Strydom T (2026). *pfim: Food Web Construction for paleo
+communities*. R package version 0.0.0.9000,
 <https://beckslab.github.io/pfim.R/>.
 
     @Manual{,
-      title = {pfim.R: What the Package Does (One Line, Title Case)},
+      title = {pfim: Food Web Construction for paleo communities},
       author = {Jack Shaw and Tanya Strydom},
       year = {2026},
       note = {R package version 0.0.0.9000},
