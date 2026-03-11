@@ -9,9 +9,9 @@ hypothetical realized food webs using a power-law link distribution.
 This workflow demonstrates:
 
 1.  Inferring feasible interactions with
-    [`infer_edgelist()`](https://beckslab.github.io/pfim.R/reference/infer_edgelist.md).
+    [`infer_edgelist()`](https://beckslab.github.io/pfim/reference/infer_edgelist.md).
 2.  Downsampling interactions into hypothetical realized webs with
-    [`powerlaw_prey()`](https://beckslab.github.io/pfim.R/reference/powerlaw_prey.md).
+    [`powerlaw_prey()`](https://beckslab.github.io/pfim/reference/powerlaw_prey.md).
 3.  Customizing link distributions via the `func` argument.
 
 Users can now use these realised webs for **network analyses**,  

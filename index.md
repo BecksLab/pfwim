@@ -31,7 +31,7 @@ size rules, and power-law downsampling of realised webs.
 ## Inferring a consumer–resource edgelist
 
 Use
-[`infer_edgelist()`](https://beckslab.github.io/pfim.R/reference/infer_edgelist.md)
+[`infer_edgelist()`](https://beckslab.github.io/pfim/reference/infer_edgelist.md)
 to infer feasible interactions:
 
     edgelist <- infer_edgelist(
@@ -48,7 +48,7 @@ to infer feasible interactions:
 ## Generate hypothetical realised webs
 
 Create a series of hypothetical webs using
-[`powerlaw_prey()`](https://beckslab.github.io/pfim.R/reference/powerlaw_prey.md)
+[`powerlaw_prey()`](https://beckslab.github.io/pfim/reference/powerlaw_prey.md)
 
     webs <- powerlaw_prey(
       el = edgelist,

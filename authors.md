@@ -10,16 +10,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/BecksLab/pfim.R/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/BecksLab/pfim/blob/main/DESCRIPTION)
 
 Shaw J, Strydom T (2026). *pfim: Food Web Construction for paleo
 communities*. R package version 0.0.0.9000,
-<https://beckslab.github.io/pfim.R/>.
+<https://beckslab.github.io/pfim/>.
 
     @Manual{,
       title = {pfim: Food Web Construction for paleo communities},
       author = {Jack Shaw and Tanya Strydom},
       year = {2026},
       note = {R package version 0.0.0.9000},
-      url = {https://beckslab.github.io/pfim.R/},
+      url = {https://beckslab.github.io/pfim/},
     }
