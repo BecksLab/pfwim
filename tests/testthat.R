@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(pfim.R)
+library(pfim)
 
-test_check("pfim.R")
+test_check("pfim")

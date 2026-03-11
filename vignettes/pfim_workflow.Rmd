@@ -26,12 +26,12 @@ simulation studies, or **comparisons to fossil and modern food webs**.
 ```{r setup, message=FALSE, warning=FALSE}
 library(dplyr)
 library(tidyr)
-library(pfim.R)
+library(pfim)
 
 # Load example data included in the package
-data("traits", package = "pfim.R")
-data("feeding_rules", package = "pfim.R")
-data("interactions", package = "pfim.R")  # internal edgelist for tests
+data("traits", package = "pfim")
+data("feeding_rules", package = "pfim")
+data("interactions", package = "pfim")  # internal edgelist for tests
 ```
 
 ## Infer Edgelist

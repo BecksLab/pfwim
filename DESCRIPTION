@@ -1,11 +1,11 @@
-Package: pfim.R
-Title: What the Package Does (One Line, Title Case)
+Package: pfim
+Title: Food Web Construction for paleo communities
 Version: 0.0.0.9000
 Authors@R: c(person("Jack", "Shaw", role = c("aut", "cre"), email = "email@gmail.com"),
              person("Tanya", "Strydom", role = "aut", comment = c(ORCID = "0000-0001-6067-1349"))
             )
 Description: R tools for reconstructing paleo food webs from species traits and size rules.
-License: MIT LICENSE
+License: MIT
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
