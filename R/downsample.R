@@ -49,11 +49,11 @@ sample_pdf <- function(M = 100,
 #'   Default:
 #'   \code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.
 #'
-#' @return A list of length \code{n_samp}, where each element is a realised
-#'   food web represented as a 2-column matrix with columns:
+#' @return A list of length \code{n_samp}. Each element is a data frame
+#'   representing a realised food web edgelist with two columns:
 #'   \describe{
-#'     \item{res_node_node_name_inferred}{Resource taxon name}
-#'     \item{con_node_node_name_inferred}{Consumer taxon name}
+#'     \item{resource}{Resource species}
+#'     \item{consumer}{Consumer species}
 #'   }
 #'
 #' @details For each consumer in `el`, the number of prey links in a realised
@@ -95,21 +95,19 @@ powerlaw_prey <- function(el,
 
   # Ensure input is a data frame
   edgelist <- as.data.frame(el)
-  colnames(edgelist) <- c("res_node_node_name_inferred", "con_node_node_name_inferred")
+  colnames(edgelist) <- c("resource", "consumer")
 
-  # Initialize list to store realised webs
-  web_list <- lapply(1:n_samp, matrix, data = NA, nrow = 0, ncol = 2)
+  consumer_list <- split(edgelist, edgelist$consumer)
 
-  # Loop over each consumer
-  for (i in unique(edgelist$con_node_node_name_inferred)) {
+  # Initialise list to store realised webs
+  web_list <- vector("list", n_samp)
 
-    min <- edgelist %>% dplyr::filter(con_node_node_name_inferred == i)
-    min <- as.data.frame(min)
+  for (consumer in names(consumer_list)) {
 
-    # Number of feasible prey for this consumer
-    M_consumer <- length(unique(min$res_node_node_name_inferred))
+    min <- consumer_list[[consumer]]
 
-    # Sample in-degree (number of prey) for n_samp webs
+    M_consumer <- nrow(min)
+
     sampled_degree <- sample_pdf(
       M = M_consumer,
       y = y,
@@ -117,18 +115,23 @@ powerlaw_prey <- function(el,
       n_samp = n_samp
     )
 
-    names(sampled_degree) <- rep(i, length(sampled_degree))
+    for (j in seq_len(n_samp)) {
 
-    # Draw sampled prey for each replicate
-    for (j in seq_along(sampled_degree)) {
-      min2 <- min %>% dplyr::sample_n(min(M_consumer, sampled_degree[[j]]))
-      web_list[[j]] <- rbind(web_list[[j]], min2)
+      n_links <- min(M_consumer, sampled_degree[j])
+
+      sampled_rows <- min[sample(M_consumer, n_links), ]
+
+      if (is.null(web_list[[j]])) {
+        web_list[[j]] <- sampled_rows
+      } else {
+        web_list[[j]] <- rbind(web_list[[j]], sampled_rows)
+      }
+
     }
   }
 
-  # Convert each web to matrix and remove NAs
-  web_list <- lapply(web_list, as.matrix)
-  web_list <- lapply(web_list, na.omit)
+  # give named outputs
+  names(web_list) <- paste0("web_", seq_len(n_samp))
 
   return(web_list)
 }

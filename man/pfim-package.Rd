@@ -13,13 +13,13 @@ R tools for reconstructing paleo food webs from species traits and size rules.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://beckslab.github.io/pfim.R/}
-  \item \url{https://github.com/BecksLab/pfim.R}
+  \item \url{https://beckslab.github.io/pfim/}
+  \item \url{https://github.com/BecksLab/pfim}
 }
 
 }
 \author{
-\strong{Maintainer}: Jack Shaw \email{email@gmail.com}
+\strong{Maintainer}: Jack Shaw \email{Jack.Shaw@colorado.edu} (\href{https://orcid.org/0000-0002-2725-2334}{ORCID})
 
 Authors:
 \itemize{

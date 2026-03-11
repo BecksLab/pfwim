@@ -1,6 +1,5 @@
 ---
-title: "PFIM: Paleo Food-Web Inference Model"
-author: "Your Name"
+title: "PFIM Workflow"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PFIM Workflow}
@@ -72,7 +71,7 @@ realised_webs[[1]]
 # Define a custom in-degree distribution function
 custom_func <- function(r, M, y) (M - r + 1)^(-y)
 
-realized_webs_custom <- powerlaw_prey(
+realised_webs_custom <- powerlaw_prey(
   el = edgelist,
   n_samp = 5,
   y = 2,
@@ -80,6 +79,6 @@ realized_webs_custom <- powerlaw_prey(
 )
 
 # First custom web
-realized_webs_custom[[1]]
+realised_webs_custom[[1]]
 ```
 
