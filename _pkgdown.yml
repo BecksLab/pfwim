@@ -1,5 +1,7 @@
 url: https://beckslab.github.io/pfim.R/
 template:
+  params:
+    favicon: pkgdown/favicon/favicon.ico
   bootstrap: 5
   bootswatch: journal
   bslib:
