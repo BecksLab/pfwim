@@ -3,6 +3,7 @@
 ## Authors
 
 - **Jack Shaw**. Author, maintainer.
+  [](https://orcid.org/0000-0002-2725-2334)
 
 - **Tanya Strydom**. Author. [](https://orcid.org/0000-0001-6067-1349)
 

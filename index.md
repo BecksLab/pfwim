@@ -1,4 +1,4 @@
-# PFIM: Paleo Food-web Inference Model
+# PFIM: Paleo Food-web Inference Model \<img src=“man/figures/logo.png” align=“right width=”120” /\>
 
 `PFIM` is an R package for inferring predator–prey interactions using
 trait-based rules and generating hypothetical realised food webs. It
