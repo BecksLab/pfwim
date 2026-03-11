@@ -1,4 +1,4 @@
-url: https://beckslab.github.io/pfim.R/
+url: https://beckslab.github.io/pfim/
 template:
   params:
     favicon: pkgdown/favicon/favicon.ico
