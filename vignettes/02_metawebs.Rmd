@@ -69,7 +69,7 @@ allows users to compute network statistics and generate visualisations.
 ``` {r}
 
 
-metaweb_graph <- igraph::graph_from_data_frame(
+metaweb_graph <- graph_from_data_frame(
   metaweb_el,
   directed = TRUE
 )

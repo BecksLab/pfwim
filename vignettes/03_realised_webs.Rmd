@@ -143,7 +143,7 @@ consensus_el <- edge_frequency %>%
 
 library(igraph)
 
-consensus_graph <- igraph::graph_from_data_frame(
+consensus_graph <- graph_from_data_frame(
   consensus_el,
   directed = TRUE
 )
@@ -167,7 +167,7 @@ how consistently each interaction occurs across simulations.
 
 ```{r}
 
-weighted_graph <- igraph::graph_from_data_frame(
+weighted_graph <- graph_from_data_frame(
   edge_frequency,
   directed = TRUE
 )

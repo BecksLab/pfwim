@@ -19,6 +19,7 @@ Imports:
     tidyr,
     tidyselect
 Suggests: 
+    igraph,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
