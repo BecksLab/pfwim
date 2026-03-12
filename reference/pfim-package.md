@@ -7,13 +7,14 @@ rules.
 
 Useful links:
 
-- <https://beckslab.github.io/pfim.R/>
+- <https://beckslab.github.io/pfim/>
 
-- <https://github.com/BecksLab/pfim.R>
+- <https://github.com/BecksLab/pfim>
 
 ## Author
 
-**Maintainer**: Jack Shaw <email@gmail.com>
+**Maintainer**: Jack Shaw <Jack.Shaw@colorado.edu>
+([ORCID](https://orcid.org/0000-0002-2725-2334))
 
 Authors:
 

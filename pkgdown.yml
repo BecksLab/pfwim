@@ -2,8 +2,10 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  pfim_workflow: pfim_workflow.html
-last_built: 2026-03-11T12:19Z
+  01_pfim_workflow: 01_pfim_workflow.html
+  02_metawebs: 02_metawebs.html
+  03_realised_webs: 03_realised_webs.html
+last_built: 2026-03-12T08:48Z
 urls:
   reference: https://beckslab.github.io/pfim/reference
   article: https://beckslab.github.io/pfim/articles

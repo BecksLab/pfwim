@@ -85,5 +85,9 @@ generated from the inferred interactions
 
 ### All vignettes
 
-- [PFIM: Paleo Food-Web Inference
-  Model](https://beckslab.github.io/pfim/articles/pfim_workflow.md):
+- [PFIM
+  Workflow](https://beckslab.github.io/pfim/articles/01_pfim_workflow.md):
+- [Building a
+  Metaweb](https://beckslab.github.io/pfim/articles/02_metawebs.md):
+- [Generating Realised Food
+  Webs](https://beckslab.github.io/pfim/articles/03_realised_webs.md):

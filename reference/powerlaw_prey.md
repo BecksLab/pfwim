@@ -41,16 +41,16 @@ powerlaw_prey(
 
 ## Value
 
-A list of length `n_samp`, where each element is a realised food web
-represented as a 2-column matrix with columns:
+A list of length `n_samp`. Each element is a data frame representing a
+realised food web edgelist with two columns:
 
-- res_node_node_name_inferred:
+- resource:
 
-  Resource taxon name
+  Resource species
 
-- con_node_node_name_inferred:
+- consumer:
 
-  Consumer taxon name
+  Consumer species
 
 ## Details
 
