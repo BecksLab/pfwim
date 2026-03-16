@@ -1,7 +1,7 @@
-#' Infer trophic interactions using PFIM trait rules
+#' Infer trophic interactions using PFWIM trait rules
 #'
 #' Infers a consumer–resource edgelist using categorical trait matching rules
-#' based on the PFIM (Paleo Food-web Inference Model) described in
+#' based on the PFWIM (Paleo Food Web Inference Model) described in
 #' Shaw (2024). Interactions are inferred by comparing resource and consumer
 #' trait combinations against a set of allowed trait rules.
 #'
@@ -85,7 +85,7 @@
 #' interactions meeting the certainty requirement.
 #'
 #' @references
-#' Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. *Preprint*.
+#' Shaw, J. (2024). PFWIM: Paleo Food web Inference Model. *Preprint*.
 #'
 #' @examples
 #' infer_edgelist(

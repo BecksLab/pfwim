@@ -1,8 +1,13 @@
-Package: pfim
+Package: pfwim
 Title: Food Web Construction for paleo communities
 Version: 0.0.0.9000
-Authors@R: c(person("Jack", "Shaw", role = c("aut", "cre"), email = "Jack.Shaw@colorado.edu", comment = c(ORCID = "0000-0002-2725-2334")),
-             person("Tanya", "Strydom", role = "aut", comment = c(ORCID = "0000-0001-6067-1349"))
+Authors@R: c(person("Jack O.", "Shaw", role = c("aut", "cre"), email = "Jack.Shaw@colorado.edu", comment = c(ORCID = "0000-0002-2725-2334")),
+             person("Alexander M.", "Dunhill", role = "ctb", comment = c(ORCID = "0000-0002-8680-9163")),
+             person("Andrew", "Beckerman", role = "ctb", comment = c(ORCID = "0000-0002-7859-8394")),
+             person("Baran", "Karapunar", role = "ctb", comment = c(ORCID = "0000-0001-9711-1492")),
+             person("Tanya", "Strydom", role = c("ctb"), comment = c(ORCID = "0000-0001-6067-1349")),
+             person("Jennifer A.", "Dunne", role = "ctb", comment = c(ORCID = "0000-0002-3789-9561")),
+             person("Pincelli M.", "Hull", role = "ctb", comment = c(ORCID = "0000-0001-8607-4817"))
             )
 Description: R tools for reconstructing paleo food webs from species traits and size rules.
 License: MIT
@@ -25,4 +30,4 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-URL: https://beckslab.github.io/pfim/, https://github.com/BecksLab/pfim
+URL: https://beckslab.github.io/pfwim/, https://github.com/BecksLab/pfwim

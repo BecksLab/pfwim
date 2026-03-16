@@ -17,7 +17,7 @@ sample_pdf(
 \item{y}{Numeric. Parameter controlling the distribution shape.}
 
 \item{func}{Function. Probability function of r (1:M), M, and y.
-Default is the PFIM exponential–power law function:
+Default is the PFWIM exponential–power law function:
 \code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.}
 
 \item{n_samp}{Integer. Number of random draws.}
@@ -27,7 +27,7 @@ Integer vector of length \code{n_samp} with values in 1:M.
 }
 \description{
 Generates random draws from 1:M with probabilities defined by a
-user-specified function (default is the PFIM mixed exponential–power law
+user-specified function (default is the PFWIM mixed exponential–power law
 distribution).
 }
 \examples{

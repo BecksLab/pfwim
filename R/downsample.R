@@ -1,13 +1,13 @@
 #' Sample integers according to a discrete probability distribution
 #'
 #' Generates random draws from 1:M with probabilities defined by a
-#' user-specified function (default is the PFIM mixed exponential–power law
+#' user-specified function (default is the PFWIM mixed exponential–power law
 #' distribution).
 #'
 #' @param M Integer. Maximum value to sample (upper bound of 1:M).
 #' @param y Numeric. Parameter controlling the distribution shape.
 #' @param func Function. Probability function of r (1:M), M, and y.
-#'   Default is the PFIM exponential–power law function:
+#'   Default is the PFWIM exponential–power law function:
 #'   \code{function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))}.
 #' @param n_samp Integer. Number of random draws.
 #'
@@ -34,7 +34,7 @@ sample_pdf <- function(M = 100,
 
 #' Generate hypothetical realised webs using a power-law link distribution
 #'
-#' PFIM generates a series of replicate hypothetical realised food webs by
+#' PFWIM generates a series of replicate hypothetical realised food webs by
 #' reducing the feasible links for each consumer to match a target link
 #' distribution. The default distribution is a mixed exponential–power law
 #' in-degree distribution as described in Shaw (2024) and Roopnarine (2006).
@@ -62,7 +62,7 @@ sample_pdf <- function(M = 100,
 #' consumer.
 #'
 #' @references
-#' Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. *Preprint*.
+#' Shaw, J. (2024). PFWIM: Paleo Food-web Inference Model. *Preprint*.
 #' Roopnarine, P. (2006). *Palaeoecology and food-web structure in fossil communities*.
 #'
 #' @examples

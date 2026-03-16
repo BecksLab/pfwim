@@ -1,6 +1,6 @@
-# PFIM: Paleo Food-web Inference Model <img src="man/figures/logo.png" align="right" width="120" />
+# PFWIM: Paleo Food Web Inference Model <img src="man/figures/logo.png" align="right" width="120" />
 
-`PFIM` is an R package for inferring predator–prey interactions using trait-based 
+`PFWIM` is an R package for inferring predator–prey interactions using trait-based 
 rules and generating hypothetical realised food webs. It implements 
 the **Paleo Food-web Inference Model (Shaw 2024)** and includes tools for categorical 
 trait matching, numerical predator–prey size rules, and power-law downsampling of 
@@ -10,23 +10,23 @@ realised webs.
 
 ```
 # Install from CRAN (when available)
-install.packages("pfim")
+install.packages("pfwim")
 
 # Or install development version from GitHub
 # install.packages("devtools")
-devtools::install_github("BecksLab/pfim")
+devtools::install_github("BecksLab/pfwim")
 ```
 
 ## Load Example Data
 
 ```
-library(pfim.R)
+library(pfwim.R)
 
 # Trait data
-data("traits", package = "pfim")
+data("traits", package = "pfwim")
 
 # Trait combination rules
-data("feeding_rules", package = "pfim")
+data("feeding_rules", package = "pfwim")
 
 head(traits)
 head(feeding_rules)

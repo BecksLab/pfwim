@@ -34,7 +34,7 @@ representing a realised food web edgelist with two columns:
 }
 }
 \description{
-PFIM generates a series of replicate hypothetical realised food webs by
+PFWIM generates a series of replicate hypothetical realised food webs by
 reducing the feasible links for each consumer to match a target link
 distribution. The default distribution is a mixed exponential–power law
 in-degree distribution as described in Shaw (2024) and Roopnarine (2006).
@@ -67,6 +67,6 @@ webs <- powerlaw_prey(edgelist, n_samp = 3, y = 2.5)
 
 }
 \references{
-Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. \emph{Preprint}.
+Shaw, J. (2024). PFWIM: Paleo Food-web Inference Model. \emph{Preprint}.
 Roopnarine, P. (2006). \emph{Palaeoecology and food-web structure in fossil communities}.
 }

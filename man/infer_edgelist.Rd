@@ -2,7 +2,7 @@
 % Please edit documentation in R/infer_edgelist.R
 \name{infer_edgelist}
 \alias{infer_edgelist}
-\title{Infer trophic interactions using PFIM trait rules}
+\title{Infer trophic interactions using PFWIM trait rules}
 \usage{
 infer_edgelist(
   data,
@@ -87,7 +87,7 @@ A matrix containing all taxon pairs and the number of trait rules satisfied.
 }
 \description{
 Infers a consumer–resource edgelist using categorical trait matching rules
-based on the PFIM (Paleo Food-web Inference Model) described in
+based on the PFWIM (Paleo Food Web Inference Model) described in
 Shaw (2024). Interactions are inferred by comparing resource and consumer
 trait combinations against a set of allowed trait rules.
 }
@@ -115,5 +115,5 @@ infer_edgelist(
 
 }
 \references{
-Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. \emph{Preprint}.
+Shaw, J. (2024). PFWIM: Paleo Food web Inference Model. \emph{Preprint}.
 }

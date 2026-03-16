@@ -1,2 +1,2 @@
-data("traits", package = "pfim")
-data("feeding_rules", package = "pfim")
+data("traits", package = "pfwim")
+data("feeding_rules", package = "pfwim")

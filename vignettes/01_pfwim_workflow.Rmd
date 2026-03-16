@@ -1,15 +1,15 @@
 ---
-title: "PFIM Workflow"
+title: "PFWIM Workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{PFIM Workflow}
+  %\VignetteIndexEntry{PFWIM Workflow}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction
 
-This vignette demonstrates how to use the PFIM package to infer
+This vignette demonstrates how to use the PFWIM package to infer
 consumer–resource interactions from trait data, and generate
 hypothetical realized food webs using a power-law link distribution.
 
@@ -25,12 +25,12 @@ simulation studies, or **comparisons to fossil and modern food webs**.
 ```{r setup, message=FALSE, warning=FALSE}
 library(dplyr)
 library(tidyr)
-library(pfim)
+library(pfwim)
 
 # Load example data included in the package
-data("traits", package = "pfim")
-data("feeding_rules", package = "pfim")
-data("interactions", package = "pfim")  # internal edgelist for tests
+data("traits", package = "pfwim")
+data("feeding_rules", package = "pfwim")
+data("interactions", package = "pfwim")  # internal edgelist for tests
 ```
 
 ## Infer Edgelist
