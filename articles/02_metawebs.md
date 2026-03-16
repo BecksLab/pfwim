@@ -74,9 +74,9 @@ metaweb_graph <- graph_from_data_frame(
 metaweb_graph
 ```
 
-    ## IGRAPH e59a782 DN-- 10 22 -- 
+    ## IGRAPH 7dfae95 DN-- 10 22 -- 
     ## + attr: name (v/c)
-    ## + edges from e59a782 (vertex names):
+    ## + edges from 7dfae95 (vertex names):
     ##  [1] cod       ->orca       cod       ->polar_bear deer      ->lynx      
     ##  [4] deer      ->polar_bear lynx      ->lynx       lynx      ->polar_bear
     ##  [7] orca      ->orca       orca      ->polar_bear plankton  ->cod       
