@@ -1,6 +1,6 @@
-# PFIM: Paleo Food-web Inference Model
+# PFWIM: Paleo Food Web Inference Model
 
-`PFIM` is an R package for inferring predator–prey interactions using
+`PFWIM` is an R package for inferring predator–prey interactions using
 trait-based rules and generating hypothetical realised food webs. It
 implements the **Paleo Food-web Inference Model (Shaw 2024)** and
 includes tools for categorical trait matching, numerical predator–prey
@@ -9,21 +9,21 @@ size rules, and power-law downsampling of realised webs.
 ## Installation
 
     # Install from CRAN (when available)
-    install.packages("pfim")
+    install.packages("pfwim")
 
     # Or install development version from GitHub
     # install.packages("devtools")
-    devtools::install_github("BecksLab/pfim")
+    devtools::install_github("BecksLab/pfwim")
 
 ## Load Example Data
 
-    library(pfim.R)
+    library(pfwim.R)
 
     # Trait data
-    data("traits", package = "pfim")
+    data("traits", package = "pfwim")
 
     # Trait combination rules
-    data("feeding_rules", package = "pfim")
+    data("feeding_rules", package = "pfwim")
 
     head(traits)
     head(feeding_rules)
@@ -31,7 +31,7 @@ size rules, and power-law downsampling of realised webs.
 ## Inferring a consumer–resource edgelist
 
 Use
-[`infer_edgelist()`](https://beckslab.github.io/pfim/reference/infer_edgelist.md)
+[`infer_edgelist()`](https://beckslab.github.io/pfwim/reference/infer_edgelist.md)
 to infer feasible interactions:
 
     edgelist <- infer_edgelist(
@@ -48,7 +48,7 @@ to infer feasible interactions:
 ## Generate hypothetical realised webs
 
 Create a series of hypothetical webs using
-[`powerlaw_prey()`](https://beckslab.github.io/pfim/reference/powerlaw_prey.md)
+[`powerlaw_prey()`](https://beckslab.github.io/pfwim/reference/powerlaw_prey.md)
 
     webs <- powerlaw_prey(
       el = edgelist,
@@ -66,28 +66,28 @@ generated from the inferred interactions
 
 ## All functions
 
-- [`feeding_rules`](https://beckslab.github.io/pfim/reference/feeding_rules.md)
+- [`feeding_rules`](https://beckslab.github.io/pfwim/reference/feeding_rules.md)
   :
 
   Example feeding rules for `traits`
 
-- [`infer_edgelist()`](https://beckslab.github.io/pfim/reference/infer_edgelist.md)
-  : Infer trophic interactions using PFIM trait rules
+- [`infer_edgelist()`](https://beckslab.github.io/pfwim/reference/infer_edgelist.md)
+  : Infer trophic interactions using PFWIM trait rules
 
-- [`powerlaw_prey()`](https://beckslab.github.io/pfim/reference/powerlaw_prey.md)
+- [`powerlaw_prey()`](https://beckslab.github.io/pfwim/reference/powerlaw_prey.md)
   : Generate hypothetical realised webs using a power-law link
   distribution
 
-- [`traits`](https://beckslab.github.io/pfim/reference/traits.md) :
+- [`traits`](https://beckslab.github.io/pfwim/reference/traits.md) :
   Example species traits data to infer feeding rules
 
 # Articles
 
 ### All vignettes
 
-- [PFIM
-  Workflow](https://beckslab.github.io/pfim/articles/01_pfim_workflow.md):
+- [PFWIM
+  Workflow](https://beckslab.github.io/pfwim/articles/01_pfwim_workflow.md):
 - [Building a
-  Metaweb](https://beckslab.github.io/pfim/articles/02_metawebs.md):
+  Metaweb](https://beckslab.github.io/pfwim/articles/02_metawebs.md):
 - [Generating Realised Food
-  Webs](https://beckslab.github.io/pfim/articles/03_realised_webs.md):
+  Webs](https://beckslab.github.io/pfwim/articles/03_realised_webs.md):

@@ -1,8 +1,8 @@
 # Sample integers according to a discrete probability distribution
 
 Generates random draws from 1:M with probabilities defined by a
-user-specified function (default is the PFIM mixed exponential–power law
-distribution).
+user-specified function (default is the PFWIM mixed exponential–power
+law distribution).
 
 ## Usage
 
@@ -28,7 +28,7 @@ sample_pdf(
 - func:
 
   Function. Probability function of r (1:M), M, and y. Default is the
-  PFIM exponential–power law function:
+  PFWIM exponential–power law function:
   `function(r, M, y) exp(-r / (exp((y - 1) * (log(M) / y))))`.
 
 - n_samp:

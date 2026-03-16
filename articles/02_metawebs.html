@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Building a Metaweb • pfim</title>
+<title>Building a Metaweb • pfwim</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -23,7 +23,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="../index.html">pfim</a>
+    <a class="navbar-brand me-2" href="../index.html">pfwim</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
@@ -38,7 +38,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/01_pfim_workflow.html">PFIM Workflow</a></li>
+<li><a class="dropdown-item" href="../articles/01_pfwim_workflow.html">PFWIM Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/02_metawebs.html">Building a Metaweb</a></li>
     <li><a class="dropdown-item" href="../articles/03_realised_webs.html">Generating Realised Food Webs</a></li>
   </ul>
@@ -48,7 +48,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/BecksLab/pfim/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/BecksLab/pfwim/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -64,7 +64,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Building a Metaweb</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/BecksLab/pfim/blob/main/vignettes/02_metawebs.Rmd" class="external-link"><code>vignettes/02_metawebs.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/BecksLab/pfwim/blob/main/vignettes/02_metawebs.Rmd" class="external-link"><code>vignettes/02_metawebs.Rmd</code></a></small>
       <div class="d-none name"><code>02_metawebs.Rmd</code></div>
     </div>
 
@@ -77,18 +77,18 @@
 interactions in a system. In the context of paleoecology, the metaweb
 captures interactions that are trait-compatible, even if they may not
 all occur simultaneously in a realised community.</p>
-<p>The PFIM workflow allows users to infer these potential interactions
+<p>The PFWIM workflow allows users to infer these potential interactions
 from species trait data and categorical feeding rules.</p>
 <p>This vignette demonstrates how to: * Infer a metaweb edgelist using
 infer_edgelist() * Convert the edgelist into an igraph network *
 Visualise the resulting food web</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beckslab.github.io/pfim/">pfim</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beckslab.github.io/pfwim/">pfwim</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"traits"</span>, package <span class="op">=</span> <span class="st">"pfim"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"feeding_rules"</span>, package <span class="op">=</span> <span class="st">"pfim"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"traits"</span>, package <span class="op">=</span> <span class="st">"pfwim"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"feeding_rules"</span>, package <span class="op">=</span> <span class="st">"pfwim"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="inferring-the-metaweb">Inferring the Metaweb<a class="anchor" aria-label="anchor" href="#inferring-the-metaweb"></a>
@@ -138,9 +138,9 @@ visualisations.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">metaweb_graph</span></span></code></pre></div>
-<pre><code><span><span class="co">## IGRAPH ef51bfd DN-- 10 22 -- </span></span>
+<pre><code><span><span class="co">## IGRAPH e59a782 DN-- 10 22 -- </span></span>
 <span><span class="co">## + attr: name (v/c)</span></span>
-<span><span class="co">## + edges from ef51bfd (vertex names):</span></span>
+<span><span class="co">## + edges from e59a782 (vertex names):</span></span>
 <span><span class="co">##  [1] cod       -&gt;orca       cod       -&gt;polar_bear deer      -&gt;lynx      </span></span>
 <span><span class="co">##  [4] deer      -&gt;polar_bear lynx      -&gt;lynx       lynx      -&gt;polar_bear</span></span>
 <span><span class="co">##  [7] orca      -&gt;orca       orca      -&gt;polar_bear plankton  -&gt;cod       </span></span>
@@ -179,7 +179,7 @@ typically much denser than observed ecological networks.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jack Shaw, Tanya Strydom.</p>
+  <p>Developed by Jack O. Shaw.</p>
 </div>
 
 <div class="pkgdown-footer-right">

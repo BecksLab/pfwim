@@ -7,7 +7,7 @@ interactions in a system. In the context of paleoecology, the metaweb
 captures interactions that are trait-compatible, even if they may not
 all occur simultaneously in a realised community.
 
-The PFIM workflow allows users to infer these potential interactions
+The PFWIM workflow allows users to infer these potential interactions
 from species trait data and categorical feeding rules.
 
 This vignette demonstrates how to: \* Infer a metaweb edgelist using
@@ -15,18 +15,18 @@ infer_edgelist() \* Convert the edgelist into an igraph network \*
 Visualise the resulting food web
 
 ``` r
-library(pfim)
+library(pfwim)
 library(dplyr)
 library(igraph)
 
-data("traits", package = "pfim")
-data("feeding_rules", package = "pfim")
+data("traits", package = "pfwim")
+data("feeding_rules", package = "pfwim")
 ```
 
 ## Inferring the Metaweb
 
 The function
-[`infer_edgelist()`](https://beckslab.github.io/pfim/reference/infer_edgelist.md)
+[`infer_edgelist()`](https://beckslab.github.io/pfwim/reference/infer_edgelist.md)
 evaluates trait compatibility between species according to a set of
 categorical feeding rules. It returns an edgelist, where each row
 represents a feasible interaction.
@@ -74,9 +74,9 @@ metaweb_graph <- graph_from_data_frame(
 metaweb_graph
 ```
 
-    ## IGRAPH ef51bfd DN-- 10 22 -- 
+    ## IGRAPH e59a782 DN-- 10 22 -- 
     ## + attr: name (v/c)
-    ## + edges from ef51bfd (vertex names):
+    ## + edges from e59a782 (vertex names):
     ##  [1] cod       ->orca       cod       ->polar_bear deer      ->lynx      
     ##  [4] deer      ->polar_bear lynx      ->lynx       lynx      ->polar_bear
     ##  [7] orca      ->orca       orca      ->polar_bear plankton  ->cod       

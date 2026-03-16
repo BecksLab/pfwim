@@ -1,6 +1,6 @@
 # Generate hypothetical realised webs using a power-law link distribution
 
-PFIM generates a series of replicate hypothetical realised food webs by
+PFWIM generates a series of replicate hypothetical realised food webs by
 reducing the feasible links for each consumer to match a target link
 distribution. The default distribution is a mixed exponential–power law
 in-degree distribution as described in Shaw (2024) and Roopnarine
@@ -61,7 +61,7 @@ that consumer.
 
 ## References
 
-Shaw, J. (2024). PFIM: Paleo Food-web Inference Model. *Preprint*.
+Shaw, J. (2024). PFWIM: Paleo Food-web Inference Model. *Preprint*.
 Roopnarine, P. (2006). *Palaeoecology and food-web structure in fossil
 communities*.
 

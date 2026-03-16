@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Food Web Construction for paleo communities • pfim</title>
+<title>Food Web Construction for paleo communities • pfwim</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Food Web Construction for paleo communities">
 <meta name="description" content="R tools for reconstructing paleo food webs from species traits and size rules.">
 <meta property="og:description" content="R tools for reconstructing paleo food webs from species traits and size rules.">
-<meta property="og:image" content="https://beckslab.github.io/pfim/logo.png">
+<meta property="og:image" content="https://beckslab.github.io/pfwim/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -26,7 +26,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="index.html">pfim</a>
+    <a class="navbar-brand me-2" href="index.html">pfwim</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
@@ -41,7 +41,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/01_pfim_workflow.html">PFIM Workflow</a></li>
+<li><a class="dropdown-item" href="articles/01_pfwim_workflow.html">PFWIM Workflow</a></li>
     <li><a class="dropdown-item" href="articles/02_metawebs.html">Building a Metaweb</a></li>
     <li><a class="dropdown-item" href="articles/03_realised_webs.html">Generating Realised Food Webs</a></li>
   </ul>
@@ -51,7 +51,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/BecksLab/pfim/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/BecksLab/pfwim/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -61,30 +61,30 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="pfim-paleo-food-web-inference-model-">PFIM: Paleo Food-web Inference Model <a class="anchor" aria-label="anchor" href="#pfim-paleo-food-web-inference-model-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="pfwim-paleo-food-web-inference-model-">PFWIM: Paleo Food Web Inference Model <a class="anchor" aria-label="anchor" href="#pfwim-paleo-food-web-inference-model-"></a>
 </h1>
 </div>
-<p><code>PFIM</code> is an R package for inferring predator–prey interactions using trait-based rules and generating hypothetical realised food webs. It implements the <strong>Paleo Food-web Inference Model (Shaw 2024)</strong> and includes tools for categorical trait matching, numerical predator–prey size rules, and power-law downsampling of realised webs.</p>
+<p><code>PFWIM</code> is an R package for inferring predator–prey interactions using trait-based rules and generating hypothetical realised food webs. It implements the <strong>Paleo Food-web Inference Model (Shaw 2024)</strong> and includes tools for categorical trait matching, numerical predator–prey size rules, and power-law downsampling of realised webs.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <pre><code><span><span class="co"># Install from CRAN (when available)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pfim"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pfwim"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Or install development version from GitHub</span></span>
 <span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BecksLab/pfim"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BecksLab/pfwim"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="load-example-data">Load Example Data<a class="anchor" aria-label="anchor" href="#load-example-data"></a>
 </h2>
-<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pfim.R</span><span class="op">)</span></span>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pfwim.R</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Trait data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"traits"</span>, package <span class="op">=</span> <span class="st">"pfim"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"traits"</span>, package <span class="op">=</span> <span class="st">"pfwim"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Trait combination rules</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"feeding_rules"</span>, package <span class="op">=</span> <span class="st">"pfim"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"feeding_rules"</span>, package <span class="op">=</span> <span class="st">"pfwim"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">feeding_rules</span><span class="op">)</span></span></code></pre>
@@ -122,7 +122,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/BecksLab/pfim/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/BecksLab/pfwim/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
 
@@ -138,15 +138,15 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing pfim</a></li>
+<li><a href="authors.html#citation">Citing pfwim</a></li>
 </ul>
 </div>
 
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Jack Shaw <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2725-2334" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
-<li>Tanya Strydom <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6067-1349" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Jack O. Shaw <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2725-2334" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
@@ -157,7 +157,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jack Shaw, Tanya Strydom.</p>
+  <p>Developed by Jack O. Shaw.</p>
 </div>
 
 <div class="pkgdown-footer-right">

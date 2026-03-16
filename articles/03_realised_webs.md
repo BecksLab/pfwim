@@ -4,8 +4,8 @@
 
 The metaweb contains all trait-compatible interactions, but real
 ecological networks typically contain far fewer links. To simulate
-realistic food webs, PFIM provides the function
-[`powerlaw_prey()`](https://beckslab.github.io/pfim/reference/powerlaw_prey.md),
+realistic food webs, PFWIM provides the function
+[`powerlaw_prey()`](https://beckslab.github.io/pfwim/reference/powerlaw_prey.md),
 which downsamples interactions from the metaweb according to a power-law
 prey degree distribution.
 
@@ -16,12 +16,12 @@ This vignette demonstrates how to:
 - Compare the metaweb and realised networks using igraph
 
 ``` r
-library(pfim)
+library(pfwim)
 library(dplyr)
 library(igraph)
 
-data("traits", package = "pfim")
-data("feeding_rules", package = "pfim")
+data("traits", package = "pfwim")
+data("feeding_rules", package = "pfwim")
 ```
 
 ## Generate the Metaweb
@@ -39,7 +39,7 @@ metaweb_el <- infer_edgelist(
 ## Generating Multiple Realised Webs
 
 The function
-[`powerlaw_prey()`](https://beckslab.github.io/pfim/reference/powerlaw_prey.md)
+[`powerlaw_prey()`](https://beckslab.github.io/pfwim/reference/powerlaw_prey.md)
 randomly samples prey for each consumer according to a power-law
 distribution, producing networks that more closely resemble empirical
 food webs.
