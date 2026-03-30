@@ -20,7 +20,7 @@ devtools::install_github("BecksLab/pfwim")
 ## Load Example Data
 
 ```
-library(pfwim.R)
+library(pfwim)
 
 # Trait data
 data("traits", package = "pfwim")
@@ -42,7 +42,6 @@ edgelist <- infer_edgelist(
   cat_combo_list = feeding_rules,
   col_taxon = "species",
   certainty_req = "all",
-  allow_self = FALSE
 )
 
 # Show first few interactions
