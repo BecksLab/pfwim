@@ -5,7 +5,8 @@ test_that("infer_edgelist runs without error", {
       data = traits,
       cat_combo_list = feeding_rules,
       col_taxon = "species",
-      hide_printout = TRUE
+      hide_printout = TRUE,
+      allow_self = FALSE
     )
   )
 
