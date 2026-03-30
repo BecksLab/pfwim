@@ -313,14 +313,15 @@ infer_edgelist <- function(data,
 
   # remove cannibalism if allow_self is set to false
   if (!allow_self) {
-    fw_match_traits3 <- fw_match_traits3 %>%
+    fw_match_traits2 <- fw_match_traits2 %>%
       dplyr::filter(taxon_resource != taxon_consumer)
   }
+  # --- FIX ENDS HERE ---
 
   # Return full matrix with trait feasibility indicated or not
   if (return_full_matrix == TRUE) {
+    # Simply assign the filtered/processed traits to the output variable
     fw_match_traits3 <- fw_match_traits2 %>% dplyr::distinct()
-    # print(paste(length(setdiff(unique(fd$taxon), unique(c(fw_match_traits3$taxon_resource, fw_match_traits3$taxon_consumer)))), "taxa dropped from web"))
 
     return(tibble::as_tibble(fw_match_traits3))
   } else {
