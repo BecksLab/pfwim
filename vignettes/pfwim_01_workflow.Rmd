@@ -32,6 +32,32 @@ data("traits", package = "pfwim")
 data("feeding_rules", package = "pfwim")
 ```
 
+## Data Structure Requirements
+
+Before running the inference model, ensure your data is formatted correctly. The `infer_edgelist()` function requires two specific data.frame objects.
+
+### Taxon Trait Data (`data`)
+
+This table contains the taxa along with their physical or ecological characteristics. Each row is a unique taxon, and columns represent specific traits.
+
+Taxon Column: A unique identifier for each species or group (*e.g.,* "species").
+
+Trait Columns: Categorical traits (*e.g.,* habitat, tiering, motility) or numerical traits (*e.g.,* body size).
+
+```{r trait-preview}
+# Preview the input structure
+head(traits)
+```
+
+### Feeding Rules (`cat_combo_list`)
+
+This table acts as the logic engine. It defines which consumer traits are compatible with which resource traits. It needs to contain both the broader trait category (column names in the trait data frame) as well as the specific trait class (the row entries for each trait column)
+
+```{r rules-preview}
+# Preview the input structure
+head(feeding_rules)
+```
+
 ## Infer Edgelist
 
 Infer interactions using categorical trait rules
