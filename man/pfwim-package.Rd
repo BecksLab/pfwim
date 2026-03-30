@@ -4,7 +4,7 @@
 \name{pfwim-package}
 \alias{pfwim}
 \alias{pfwim-package}
-\title{pfwim: Food Web Construction for paleo communities}
+\title{pfwim: Food Web Construction for Paleo Communities}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
