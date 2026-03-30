@@ -104,3 +104,64 @@ test_that("numeric size rule requires function", {
   )
 
 })
+
+test_that("infer_edgelist correctly applies numeric size rules", {
+
+  # 1. Create a simplified numeric dataset
+  numeric_traits <- data.frame(
+    species = c("Lion", "Zebra", "Grass"),
+    diet = c("carnivore", "herbivore", "producer"),
+    body_mass = c(190, 300, 1) # Note: Zebra is heavier than Lion
+  )
+
+  # 2. Create a basic categorical rule (Carnivores eat Herbivores)
+  simple_rules <- data.frame(
+    trait_type_resource = "diet",
+    trait_resource = "herbivore",
+    trait_type_consumer = "diet",
+    trait_consumer = "carnivore"
+  )
+
+  # 3. Define a numeric rule: Consumer must be at least 50% of resource mass
+  # Using your required syntax: function(res_size, con_size)
+  mass_rule <- function(res_size, con_size) {
+    ifelse(con_size >= (res_size * 0.5), 1, 0)
+  }
+
+  # 4. Run the function
+  result <- infer_edgelist(
+    data = numeric_traits,
+    cat_combo_list = simple_rules,
+    col_taxon = "species",
+    col_num_size = "body_mass",
+    num_size_rule = mass_rule,
+    certainty_req = "all", # Must satisfy diet rule AND mass rule
+    hide_printout = TRUE
+  )
+
+  # 5. Assertions
+  # In this scenario:
+  # Lion (190) eating Zebra (300) is feasible (190 >= 150)
+  # If we changed the rule to con_size > res_size, it would return 0 rows.
+
+  expect_s3_class(result, "tbl_df")
+  expect_true(any(result$taxon_consumer == "Lion" & result$taxon_resource == "Zebra"))
+
+  # Test that it fails if the rule is not met
+  strict_rule <- function(res_size, con_size) {
+    ifelse(con_size > res_size, 1, 0)
+  }
+
+  result_strict <- infer_edgelist(
+    data = numeric_traits,
+    cat_combo_list = simple_rules,
+    col_taxon = "species",
+    col_num_size = "body_mass",
+    num_size_rule = strict_rule,
+    certainty_req = "all",
+    hide_printout = TRUE
+  )
+
+  # Lion is NOT larger than Zebra, so no links should be found
+  expect_equal(nrow(result_strict), 0)
+})
