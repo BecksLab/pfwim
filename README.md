@@ -20,7 +20,7 @@ devtools::install_github("BecksLab/pfwim")
 ## Load Example Data
 
 ```
-library(pfwim.R)
+library(pfwim)
 
 # Trait data
 data("traits", package = "pfwim")
