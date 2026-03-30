@@ -1,16 +1,24 @@
 Package: pfwim
-Title: Food Web Construction for paleo communities
+Title: Food Web Construction for Paleo Communities
 Version: 0.0.0.9000
-Authors@R: c(person("Jack O.", "Shaw", role = c("aut", "cre"), email = "Jack.Shaw@colorado.edu", comment = c(ORCID = "0000-0002-2725-2334")),
-             person("Alexander M.", "Dunhill", role = "ctb", comment = c(ORCID = "0000-0002-8680-9163")),
-             person("Andrew", "Beckerman", role = "ctb", comment = c(ORCID = "0000-0002-7859-8394")),
-             person("Baran", "Karapunar", role = "ctb", comment = c(ORCID = "0000-0001-9711-1492")),
-             person("Tanya", "Strydom", role = c("ctb"), comment = c(ORCID = "0000-0001-6067-1349")),
-             person("Jennifer A.", "Dunne", role = "ctb", comment = c(ORCID = "0000-0002-3789-9561")),
-             person("Pincelli M.", "Hull", role = "ctb", comment = c(ORCID = "0000-0001-8607-4817"))
-            )
+Authors@R: c(
+    person("Jack O.", "Shaw", role = c("aut", "cre"), email = "Jack.Shaw@colorado.edu",
+           comment = c(ORCID = "0000-0002-2725-2334")),
+    person("Alexander M.", "Dunhill", role = "ctb",
+           comment = c(ORCID = "0000-0002-8680-9163")),
+    person("Andrew", "Beckerman", role = "ctb",
+           comment = c(ORCID = "0000-0002-7859-8394")),
+    person("Baran", "Karapunar", role = "ctb",
+           comment = c(ORCID = "0000-0001-9711-1492")),
+    person("Tanya", "Strydom", role = c("ctb"),
+           comment = c(ORCID = "0000-0001-6067-1349")),
+    person("Jennifer A.", "Dunne", role = "ctb",
+           comment = c(ORCID = "0000-0002-3789-9561")),
+    person("Pincelli M.", "Hull", role = "ctb",
+           comment = c(ORCID = "0000-0001-8607-4817"))
+  )
 Description: R tools for reconstructing paleo food webs from species traits and size rules.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
