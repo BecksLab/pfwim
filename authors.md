@@ -28,11 +28,11 @@
 Source:
 [`DESCRIPTION`](https://github.com/BecksLab/pfwim/blob/main/DESCRIPTION)
 
-Shaw J (2026). *pfwim: Food Web Construction for paleo communities*. R
+Shaw J (2026). *pfwim: Food Web Construction for Paleo Communities*. R
 package version 0.0.0.9000, <https://beckslab.github.io/pfwim/>.
 
     @Manual{,
-      title = {pfwim: Food Web Construction for paleo communities},
+      title = {pfwim: Food Web Construction for Paleo Communities},
       author = {Jack O. Shaw},
       year = {2026},
       note = {R package version 0.0.0.9000},
