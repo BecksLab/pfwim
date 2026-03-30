@@ -30,7 +30,6 @@ library(pfwim)
 # Load example data included in the package
 data("traits", package = "pfwim")
 data("feeding_rules", package = "pfwim")
-data("interactions", package = "pfwim")  # internal edgelist for tests
 ```
 
 ## Infer Edgelist
