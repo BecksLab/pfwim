@@ -2,10 +2,10 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  01_pfwim_workflow: 01_pfwim_workflow.html
-  02_metawebs: 02_metawebs.html
-  03_realised_webs: 03_realised_webs.html
-last_built: 2026-03-30T11:06Z
+  pfwim_01_workflow: pfwim_01_workflow.html
+  pfwim_02_metawebs: pfwim_02_metawebs.html
+  pfwim_03_realised_webs: pfwim_03_realised_webs.html
+last_built: 2026-03-30T11:15Z
 urls:
   reference: https://beckslab.github.io/pfwim/reference
   article: https://beckslab.github.io/pfwim/articles

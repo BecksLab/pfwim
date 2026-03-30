@@ -1,10 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://beckslab.github.io/pfwim/404.html</loc></url>
 <url><loc>https://beckslab.github.io/pfwim/LICENSE.html</loc></url>
-<url><loc>https://beckslab.github.io/pfwim/articles/01_pfwim_workflow.html</loc></url>
-<url><loc>https://beckslab.github.io/pfwim/articles/02_metawebs.html</loc></url>
-<url><loc>https://beckslab.github.io/pfwim/articles/03_realised_webs.html</loc></url>
 <url><loc>https://beckslab.github.io/pfwim/articles/index.html</loc></url>
+<url><loc>https://beckslab.github.io/pfwim/articles/pfwim_01_workflow.html</loc></url>
+<url><loc>https://beckslab.github.io/pfwim/articles/pfwim_02_metawebs.html</loc></url>
+<url><loc>https://beckslab.github.io/pfwim/articles/pfwim_03_realised_webs.html</loc></url>
 <url><loc>https://beckslab.github.io/pfwim/authors.html</loc></url>
 <url><loc>https://beckslab.github.io/pfwim/index.html</loc></url>
 <url><loc>https://beckslab.github.io/pfwim/reference/feeding_rules.html</loc></url>
