@@ -17,7 +17,7 @@ size rules, and power-law downsampling of realised webs.
 
 ## Load Example Data
 
-    library(pfwim.R)
+    library(pfwim)
 
     # Trait data
     data("traits", package = "pfwim")
@@ -39,7 +39,6 @@ to infer feasible interactions:
       cat_combo_list = feeding_rules,
       col_taxon = "species",
       certainty_req = "all",
-      allow_self = FALSE
     )
 
     # Show first few interactions
