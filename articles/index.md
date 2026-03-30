@@ -8,3 +8,5 @@
   Metaweb](https://beckslab.github.io/pfwim/articles/pfwim_02_metawebs.md):
 - [Generating Realised Food
   Webs](https://beckslab.github.io/pfwim/articles/pfwim_03_realised_webs.md):
+- [Using Continuous
+  Variables](https://beckslab.github.io/pfwim/articles/pfwim_04_cont_size.md):

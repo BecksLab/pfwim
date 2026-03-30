@@ -27,6 +27,58 @@ data("traits", package = "pfwim")
 data("feeding_rules", package = "pfwim")
 ```
 
+### Data Structure Requirements
+
+Before running the inference model, ensure your data is formatted
+correctly. The
+[`infer_edgelist()`](https://beckslab.github.io/pfwim/reference/infer_edgelist.md)
+function requires two specific data.frame objects.
+
+#### Taxon Trait Data (`data`)
+
+This table contains the taxa along with their physical or ecological
+characteristics. Each row is a unique taxon, and columns represent
+specific traits.
+
+Taxon Column: A unique identifier for each species or group (*e.g.,*
+“species”).
+
+Trait Columns: Categorical traits (*e.g.,* habitat, tiering, motility)
+or numerical traits (*e.g.,* body size).
+
+``` r
+# Preview the input structure
+head(traits)
+```
+
+    ##      species motility      habitat   feeding   size
+    ## 1 polar_bear   motile semi_aquatic  tertiary  large
+    ## 2       seal   motile semi_aquatic secondary medium
+    ## 3       orca   motile      aquatic  tertiary  large
+    ## 4        cod   motile      aquatic secondary medium
+    ## 5   plankton   motile      aquatic   primary  small
+    ## 6    plant_1  sessile  terrestrial   primary  small
+
+#### Feeding Rules (`cat_combo_list`)
+
+This table acts as the logic engine. It defines which consumer traits
+are compatible with which resource traits. It needs to contain both the
+broader trait category (column names in the trait data frame) as well as
+the specific trait class (the row entries for each trait column)
+
+``` r
+# Preview the input structure
+head(feeding_rules)
+```
+
+    ##   trait_type_resource trait_resource trait_type_consumer trait_consumer
+    ## 1             feeding        primary             feeding      secondary
+    ## 2             feeding       tertiary             feeding       tertiary
+    ## 3             feeding      secondary             feeding       tertiary
+    ## 4            motility        sessile            motility        sessile
+    ## 5            motility        sessile            motility         motile
+    ## 6            motility         motile            motility         motile
+
 ### Infer Edgelist
 
 Infer interactions using categorical trait rules

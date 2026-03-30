@@ -41,6 +41,7 @@
 <li><a class="dropdown-item" href="../articles/pfwim_01_workflow.html">PFWIM Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/pfwim_02_metawebs.html">Building a Metaweb</a></li>
     <li><a class="dropdown-item" href="../articles/pfwim_03_realised_webs.html">Generating Realised Food Webs</a></li>
+    <li><a class="dropdown-item" href="../articles/pfwim_04_cont_size.html">Using Continuous Variables</a></li>
   </ul>
 </li>
       </ul>
@@ -98,10 +99,56 @@ webs</strong>.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"traits"</span>, package <span class="op">=</span> <span class="st">"pfwim"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"feeding_rules"</span>, package <span class="op">=</span> <span class="st">"pfwim"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
+<h3 id="data-structure-requirements">Data Structure Requirements<a class="anchor" aria-label="anchor" href="#data-structure-requirements"></a>
+</h3>
+<p>Before running the inference model, ensure your data is formatted
+correctly. The <code><a href="../reference/infer_edgelist.html">infer_edgelist()</a></code> function requires two
+specific data.frame objects.</p>
+<div class="section level4">
+<h4 id="taxon-trait-data-data">Taxon Trait Data (<code>data</code>)<a class="anchor" aria-label="anchor" href="#taxon-trait-data-data"></a>
+</h4>
+<p>This table contains the taxa along with their physical or ecological
+characteristics. Each row is a unique taxon, and columns represent
+specific traits.</p>
+<p>Taxon Column: A unique identifier for each species or group
+(<em>e.g.,</em> “species”).</p>
+<p>Trait Columns: Categorical traits (<em>e.g.,</em> habitat, tiering,
+motility) or numerical traits (<em>e.g.,</em> body size).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Preview the input structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      species motility      habitat   feeding   size</span></span>
+<span><span class="co">## 1 polar_bear   motile semi_aquatic  tertiary  large</span></span>
+<span><span class="co">## 2       seal   motile semi_aquatic secondary medium</span></span>
+<span><span class="co">## 3       orca   motile      aquatic  tertiary  large</span></span>
+<span><span class="co">## 4        cod   motile      aquatic secondary medium</span></span>
+<span><span class="co">## 5   plankton   motile      aquatic   primary  small</span></span>
+<span><span class="co">## 6    plant_1  sessile  terrestrial   primary  small</span></span></code></pre>
+</div>
+<div class="section level4">
+<h4 id="feeding-rules-cat_combo_list">Feeding Rules (<code>cat_combo_list</code>)<a class="anchor" aria-label="anchor" href="#feeding-rules-cat_combo_list"></a>
+</h4>
+<p>This table acts as the logic engine. It defines which consumer traits
+are compatible with which resource traits. It needs to contain both the
+broader trait category (column names in the trait data frame) as well as
+the specific trait class (the row entries for each trait column)</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Preview the input structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">feeding_rules</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   trait_type_resource trait_resource trait_type_consumer trait_consumer</span></span>
+<span><span class="co">## 1             feeding        primary             feeding      secondary</span></span>
+<span><span class="co">## 2             feeding       tertiary             feeding       tertiary</span></span>
+<span><span class="co">## 3             feeding      secondary             feeding       tertiary</span></span>
+<span><span class="co">## 4            motility        sessile            motility        sessile</span></span>
+<span><span class="co">## 5            motility        sessile            motility         motile</span></span>
+<span><span class="co">## 6            motility         motile            motility         motile</span></span></code></pre>
+</div>
+</div>
+<div class="section level3">
 <h3 id="infer-edgelist">Infer Edgelist<a class="anchor" aria-label="anchor" href="#infer-edgelist"></a>
 </h3>
 <p>Infer interactions using categorical trait rules</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/infer_edgelist.html">infer_edgelist</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">traits</span>,</span>
 <span>  cat_combo_list <span class="op">=</span> <span class="va">feeding_rules</span>,</span>
@@ -125,7 +172,7 @@ webs</strong>.</p>
 <h3 id="generate-realised-webs-with-power-law">Generate Realised Webs with Power-Law<a class="anchor" aria-label="anchor" href="#generate-realised-webs-with-power-law"></a>
 </h3>
 <p>Generate 5 hypothetical realised webs</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">realised_webs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/powerlaw_prey.html">powerlaw_prey</a></span><span class="op">(</span></span>
 <span>  el <span class="op">=</span> <span class="va">edgelist</span>,</span>
 <span>  n_samp <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -152,7 +199,7 @@ webs</strong>.</p>
 <div class="section level3">
 <h3 id="customizing-the-power-law-distribution">Customizing the Power-Law Distribution<a class="anchor" aria-label="anchor" href="#customizing-the-power-law-distribution"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a custom in-degree distribution function</span></span>
 <span><span class="va">custom_func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">r</span>, <span class="va">M</span>, <span class="va">y</span><span class="op">)</span> <span class="op">(</span><span class="va">M</span> <span class="op">-</span> <span class="va">r</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="va">y</span><span class="op">)</span></span>
 <span></span>

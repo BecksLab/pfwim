@@ -1,4 +1,4 @@
-# pfwim: Food Web Construction for paleo communities
+# pfwim: Food Web Construction for Paleo Communities
 
 R tools for reconstructing paleo food webs from species traits and size
 rules.
