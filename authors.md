@@ -26,7 +26,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/BecksLab/pfwim/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/BecksLab/pfwim/blob/v1.0.0/DESCRIPTION)
 
 Shaw J (2026). *pfwim: Food Web Construction for Paleo Communities*. R
 package version 1.0.0, <https://beckslab.github.io/pfwim/>.
