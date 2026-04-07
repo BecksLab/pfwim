@@ -15,9 +15,9 @@ In many food webs, a consumer's ability to eat a resource is limited by their re
 
 First, ensure your taxon data includes a numeric column for size (e.g., body mass in kg or length in cm). Here we will modify our traits dataframe
 
-```{r-modify_traits}
+```{r, modify_traits}
 
-# Adding body mass (kg) to our traits
+# Adding body mass to our traits
 traits_numeric <- traits %>%
   mutate(body_mass = case_when(
     species == "polar_bear" ~ 450,
@@ -36,7 +36,7 @@ head(traits_numeric)
 
 The num_size_rule argument requires a function that takes two inputs (res_size, con_size) and returns 1 (feasible) or 0 (not feasible).
 
-``` {r-size_rule}
+```{r, size_rule}
 
 my_size_rule <- function(res_size, con_size) {
   ratio <- con_size / res_size
@@ -49,7 +49,7 @@ my_size_rule <- function(res_size, con_size) {
 
 When `col_num_size` is provided, the function treats it as an additional trait type. If `certainty_req = "all"`, the interaction must satisfy all categorical matches AND the numerical size rule.
 
-```{r-build_list}
+```{r, build_list}
 
 edgelist_size <- infer_edgelist(
   data = traits_numeric,
