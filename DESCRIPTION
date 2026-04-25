@@ -2,7 +2,9 @@ Package: pfwim
 Title: Food Web Construction for Paleo Communities
 Version: 1.0.0
 Authors@R: c(
-    person("Jack O.", "Shaw", role = c("aut", "cre"), email = "Jack.Shaw@colorado.edu",
+    person("Tanya", "Strydom", role = c("aut", "cre"), email = "t.strydom@sheffield.ac.uk",
+           comment = c(ORCID = "0000-0001-6067-1349")),
+    person("Jack O.", "Shaw", role = c("ctb"),
            comment = c(ORCID = "0000-0002-2725-2334")),
     person("Alexander M.", "Dunhill", role = "ctb",
            comment = c(ORCID = "0000-0002-8680-9163")),
