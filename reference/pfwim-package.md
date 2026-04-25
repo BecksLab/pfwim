@@ -13,10 +13,13 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Jack O. Shaw <Jack.Shaw@colorado.edu>
-([ORCID](https://orcid.org/0000-0002-2725-2334))
+**Maintainer**: Tanya Strydom <t.strydom@sheffield.ac.uk>
+([ORCID](https://orcid.org/0000-0001-6067-1349))
 
 Other contributors:
+
+- Jack O. Shaw ([ORCID](https://orcid.org/0000-0002-2725-2334))
+  \[contributor\]
 
 - Alexander M. Dunhill ([ORCID](https://orcid.org/0000-0002-8680-9163))
   \[contributor\]
