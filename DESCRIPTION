@@ -12,8 +12,6 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-7859-8394")),
     person("Baran", "Karapunar", role = "ctb",
            comment = c(ORCID = "0000-0001-9711-1492")),
-    person("Tanya", "Strydom", role = c("ctb"),
-           comment = c(ORCID = "0000-0001-6067-1349")),
     person("Jennifer A.", "Dunne", role = "ctb",
            comment = c(ORCID = "0000-0002-3789-9561")),
     person("Pincelli M.", "Hull", role = "ctb",

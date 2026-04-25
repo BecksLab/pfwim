@@ -27,7 +27,6 @@ Other contributors:
   \item Alexander M. Dunhill (\href{https://orcid.org/0000-0002-8680-9163}{ORCID}) [contributor]
   \item Andrew Beckerman (\href{https://orcid.org/0000-0002-7859-8394}{ORCID}) [contributor]
   \item Baran Karapunar (\href{https://orcid.org/0000-0001-9711-1492}{ORCID}) [contributor]
-  \item Tanya Strydom (\href{https://orcid.org/0000-0001-6067-1349}{ORCID}) [contributor]
   \item Jennifer A. Dunne (\href{https://orcid.org/0000-0002-3789-9561}{ORCID}) [contributor]
   \item Pincelli M. Hull (\href{https://orcid.org/0000-0001-8607-4817}{ORCID}) [contributor]
 }
