@@ -30,9 +30,6 @@ Other contributors:
 - Baran Karapunar ([ORCID](https://orcid.org/0000-0001-9711-1492))
   \[contributor\]
 
-- Tanya Strydom ([ORCID](https://orcid.org/0000-0001-6067-1349))
-  \[contributor\]
-
 - Jennifer A. Dunne ([ORCID](https://orcid.org/0000-0002-3789-9561))
   \[contributor\]
 
