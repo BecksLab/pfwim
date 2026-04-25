@@ -17,6 +17,9 @@ First, ensure your taxon data includes a numeric column for size (e.g., body mas
 
 ```{r, modify_traits}
 
+library(pfwim)
+library(dplyr)
+
 # Adding body mass to our traits
 traits_numeric <- traits %>%
   mutate(body_mass = case_when(

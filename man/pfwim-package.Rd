@@ -19,10 +19,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jack O. Shaw \email{Jack.Shaw@colorado.edu} (\href{https://orcid.org/0000-0002-2725-2334}{ORCID})
+\strong{Maintainer}: Tanya Strydom \email{t.strydom@sheffield.ac.uk} (\href{https://orcid.org/0000-0001-6067-1349}{ORCID})
 
 Other contributors:
 \itemize{
+  \item Jack O. Shaw (\href{https://orcid.org/0000-0002-2725-2334}{ORCID}) [contributor]
   \item Alexander M. Dunhill (\href{https://orcid.org/0000-0002-8680-9163}{ORCID}) [contributor]
   \item Andrew Beckerman (\href{https://orcid.org/0000-0002-7859-8394}{ORCID}) [contributor]
   \item Baran Karapunar (\href{https://orcid.org/0000-0001-9711-1492}{ORCID}) [contributor]
