@@ -62,22 +62,25 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="pfwim-paleo-food-web-inference-model-">PFWIM: Paleo Food Web Inference Model <a class="anchor" aria-label="anchor" href="#pfwim-paleo-food-web-inference-model-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="pfwim-paleo-food-web-inference-model-">pfwim: Paleo Food Web Inference Model <a class="anchor" aria-label="anchor" href="#pfwim-paleo-food-web-inference-model-"></a>
 </h1>
 </div>
-<p><code>PFWIM</code> is an R package for inferring predator–prey interactions using trait-based rules and generating hypothetical realised food webs. It implements the <strong>Paleo Food-web Inference Model (Shaw 2024)</strong> and includes tools for categorical trait matching, numerical predator–prey size rules, and power-law downsampling of realised webs.</p>
+<!-- badges: start -->
+
+<p><code>pfrim</code> is an R package for inferring predator–prey interactions using trait-based rules and generating hypothetical realised food webs. It implements the <strong>Paleo Food-web Inference Model</strong> (<a href="https://doi.org/10.1101/2024.01.30.578036" class="external-link">Shaw 2024</a>) and includes tools for categorical trait matching, numerical predator–prey size rules, and power-law downsampling of realised webs.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<pre><code><span><span class="co"># Install from CRAN (when available)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pfwim"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Or install development version from GitHub</span></span>
-<span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BecksLab/pfwim"</span><span class="op">)</span></span></code></pre>
+<p>Install from CRAN</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pfwim"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of <code>pfwim</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"BecksLab/pfwim"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="load-example-data">Load Example Data<a class="anchor" aria-label="anchor" href="#load-example-data"></a>
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beckslab.github.io/pfwim/">pfwim</a></span><span class="op">)</span></span>
 <span></span>
@@ -89,10 +92,9 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">feeding_rules</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="section level2">
-<h2 id="inferring-a-consumerresource-edgelist">Inferring a consumer–resource edgelist<a class="anchor" aria-label="anchor" href="#inferring-a-consumerresource-edgelist"></a>
-</h2>
+<div class="section level3">
+<h3 id="inferring-a-consumerresource-edgelist">Inferring a consumer–resource edgelist<a class="anchor" aria-label="anchor" href="#inferring-a-consumerresource-edgelist"></a>
+</h3>
 <p>Use <code><a href="reference/infer_edgelist.html">infer_edgelist()</a></code> to infer feasible interactions:</p>
 <pre><code><span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/infer_edgelist.html">infer_edgelist</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">traits</span>,</span>
@@ -104,9 +106,9 @@
 <span><span class="co"># Show first few interactions</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="generate-hypothetical-realised-webs">Generate hypothetical realised webs<a class="anchor" aria-label="anchor" href="#generate-hypothetical-realised-webs"></a>
-</h2>
+<div class="section level3">
+<h3 id="generate-hypothetical-realised-webs">Generate hypothetical realised webs<a class="anchor" aria-label="anchor" href="#generate-hypothetical-realised-webs"></a>
+</h3>
 <p>Create a series of hypothetical webs using <code><a href="reference/powerlaw_prey.html">powerlaw_prey()</a></code></p>
 <pre><code><span><span class="va">webs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/powerlaw_prey.html">powerlaw_prey</a></span><span class="op">(</span></span>
 <span>  el <span class="op">=</span> <span class="va">edgelist</span>,</span>
@@ -119,9 +121,17 @@
 <p>Each element of <code>webs</code> is a matrix representing a realised food web generated from the inferred interactions</p>
 </div>
 </div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use <code>pfwim</code> in your research, please cite the associated manuscript:</p>
+<p>Shaw, Jack O., Alexander M. Dunhill, Andrew P. Beckerman, Jennifer A. Dunne, and Pincelli M. Hull. 2024. A Framework for Reconstructing Ancient Food Webs Using Functional Trait Data. bioRxiv. <a href="https://doi.org/10.1101/2024.01.30.578036" class="external-link uri">https://doi.org/10.1101/2024.01.30.578036</a>.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=pfwim" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/BecksLab/pfwim/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
@@ -150,7 +160,13 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=pfwim" class="external-link"><img src="https://www.r-pkg.org/badges/version/pfwim" alt="CRAN status"></a></li>
+<li><a href="https://github.com/BecksLab/pfwim/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/BecksLab/pfwim/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
