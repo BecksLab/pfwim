@@ -4,6 +4,7 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/pfwim)](https://CRAN.R-project.org/package=pfwim)
 [![R-CMD-check](https://github.com/BecksLab/pfwim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BecksLab/pfwim/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 `pfrim` is an R package for inferring predator–prey interactions using trait-based 
