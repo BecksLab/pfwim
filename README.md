@@ -75,3 +75,11 @@ webs[[1]]
 
 Each element of `webs` is a matrix representing a realised food web generated 
 from the inferred interactions
+
+## Citation
+
+If you use `pfwim` in your research, please cite the associated manuscript:
+
+Shaw, Jack O., Alexander M. Dunhill, Andrew P. Beckerman, Jennifer A. Dunne, 
+and Pincelli M. Hull. 2024. A Framework for Reconstructing Ancient Food Webs 
+Using Functional Trait Data. bioRxiv. https://doi.org/10.1101/2024.01.30.578036.
