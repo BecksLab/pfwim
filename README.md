@@ -1,23 +1,33 @@
-# PFWIM: Paleo Food Web Inference Model <img src="man/figures/logo.png" align="right" width="120" />
 
-`PFWIM` is an R package for inferring predator–prey interactions using trait-based 
+# pfwim: Paleo Food Web Inference Model <img src="man/figures/logo.png" align="right" width="120" />
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/pfwim)](https://CRAN.R-project.org/package=pfwim)
+[![R-CMD-check](https://github.com/BecksLab/pfwim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BecksLab/pfwim/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+`pfrim` is an R package for inferring predator–prey interactions using trait-based 
 rules and generating hypothetical realised food webs. It implements 
-the **Paleo Food-web Inference Model (Shaw 2024)** and includes tools for categorical 
-trait matching, numerical predator–prey size rules, and power-law downsampling of 
-realised webs.
+the **Paleo Food-web Inference Model** ([Shaw 2024](https://doi.org/10.1101/2024.01.30.578036)) 
+and includes tools for categorical  trait matching, numerical predator–prey size rules, and 
+power-law downsampling of realised webs.
 
 ## Installation
 
-```
-# Install from CRAN (when available)
+Install from CRAN
+
+``` r
 install.packages("pfwim")
-
-# Or install development version from GitHub
-# install.packages("devtools")
-devtools::install_github("BecksLab/pfwim")
 ```
 
-## Load Example Data
+You can install the development version of `pfwim` from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("BecksLab/pfwim")
+```
+
+## Examples
 
 ```
 library(pfwim)
@@ -32,7 +42,7 @@ head(traits)
 head(feeding_rules)
 ```
 
-## Inferring a consumer–resource edgelist
+### Inferring a consumer–resource edgelist
 
 Use `infer_edgelist()` to infer feasible interactions:
 
@@ -48,7 +58,7 @@ edgelist <- infer_edgelist(
 head(edgelist)
 ```
 
-## Generate hypothetical realised webs
+### Generate hypothetical realised webs
 
 Create a series of hypothetical webs using `powerlaw_prey()`
 
