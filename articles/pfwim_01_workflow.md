@@ -18,6 +18,7 @@ Users can now use these realised webs for **network analyses**,
 simulation studies, or **comparisons to fossil and modern food webs**.
 
 ``` r
+
 library(dplyr)
 library(tidyr)
 library(pfwim)
@@ -47,6 +48,7 @@ Trait Columns: Categorical traits (*e.g.,* habitat, tiering, motility)
 or numerical traits (*e.g.,* body size).
 
 ``` r
+
 # Preview the input structure
 head(traits)
 ```
@@ -67,6 +69,7 @@ broader trait category (column names in the trait data frame) as well as
 the specific trait class (the row entries for each trait column)
 
 ``` r
+
 # Preview the input structure
 head(feeding_rules)
 ```
@@ -84,6 +87,7 @@ head(feeding_rules)
 Infer interactions using categorical trait rules
 
 ``` r
+
 edgelist <- infer_edgelist(
   data = traits,
   cat_combo_list = feeding_rules,
@@ -110,6 +114,7 @@ head(edgelist)
 Generate 5 hypothetical realised webs
 
 ``` r
+
 realised_webs <- powerlaw_prey(
   el = edgelist,
   n_samp = 5,
@@ -138,6 +143,7 @@ realised_webs[[1]]
 ### Customizing the Power-Law Distribution
 
 ``` r
+
 # Define a custom in-degree distribution function
 custom_func <- function(r, M, y) (M - r + 1)^(-y)
 

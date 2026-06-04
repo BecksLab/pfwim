@@ -12,6 +12,7 @@ power-law downsampling of realised webs.
 Install from CRAN
 
 ``` r
+
 install.packages("pfwim")
 ```
 
@@ -19,6 +20,7 @@ You can install the development version of `pfwim` from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("BecksLab/pfwim")
 ```

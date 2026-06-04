@@ -15,6 +15,7 @@ infer_edgelist() \* Convert the edgelist into an igraph network \*
 Visualise the resulting food web
 
 ``` r
+
 library(pfwim)
 library(dplyr)
 library(igraph)
@@ -32,6 +33,7 @@ categorical feeding rules. It returns an edgelist, where each row
 represents a feasible interaction.
 
 ``` r
+
 metaweb_el <- infer_edgelist(
   data = traits,
   cat_combo_list = feeding_rules,
@@ -66,6 +68,7 @@ The edgelist can be directly converted into an igraph object, which
 allows users to compute network statistics and generate visualisations.
 
 ``` r
+
 metaweb_graph <- graph_from_data_frame(
   metaweb_el,
   directed = TRUE
@@ -74,9 +77,9 @@ metaweb_graph <- graph_from_data_frame(
 metaweb_graph
 ```
 
-    ## IGRAPH 55d3d97 DN-- 10 22 -- 
+    ## IGRAPH 83d87d9 DN-- 10 22 -- 
     ## + attr: name (v/c)
-    ## + edges from 55d3d97 (vertex names):
+    ## + edges from 83d87d9 (vertex names):
     ##  [1] cod       ->orca       cod       ->polar_bear deer      ->lynx      
     ##  [4] deer      ->polar_bear lynx      ->lynx       lynx      ->polar_bear
     ##  [7] orca      ->orca       orca      ->polar_bear plankton  ->cod       
@@ -92,6 +95,7 @@ Food webs are directed networks where edges flow from resource →
 consumer.
 
 ``` r
+
 set.seed(66)
 
 plot(

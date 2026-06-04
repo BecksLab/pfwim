@@ -16,6 +16,7 @@ This vignette demonstrates how to:
 - Compare the metaweb and realised networks using igraph
 
 ``` r
+
 library(pfwim)
 library(dplyr)
 library(igraph)
@@ -27,6 +28,7 @@ data("feeding_rules", package = "pfwim")
 ## Generate the Metaweb
 
 ``` r
+
 metaweb_el <- infer_edgelist(
   data = traits,
   cat_combo_list = feeding_rules,
@@ -52,6 +54,7 @@ simulation-based analyses.
 The argument `n_samp` controls how many realised webs are generated.
 
 ``` r
+
 realised_webs <- powerlaw_prey(
   el = metaweb_el,
   n_samp = 5,
@@ -63,6 +66,7 @@ The result is a list of edgelists, where each element represents one
 simulated realised food web.
 
 ``` r
+
 length(realised_webs)
 ```
 
@@ -71,6 +75,7 @@ length(realised_webs)
 Each entry in the list can be accessed individually.
 
 ``` r
+
 realised_webs[[1]]
 ```
 
@@ -90,6 +95,7 @@ realised_webs[[1]]
     ## 10   plankton       seal
 
 ``` r
+
 realised_webs[[2]]
 ```
 
@@ -118,6 +124,7 @@ First, combine all realised edgelists into one table. Here the `.id`
 column identifies which realised web each interaction came from.
 
 ``` r
+
 library(dplyr)
 
 combined_edges <- dplyr::bind_rows(
@@ -141,6 +148,7 @@ The column `freq` indicates the number of realised webs in which each
 interaction occurs.
 
 ``` r
+
 edge_frequency <- combined_edges %>%
   count(resource, consumer, name = "freq")
 
@@ -175,6 +183,7 @@ A simple consensus rule is to keep interactions that appear in at least
 half of the simulations. This produces a consensus realised web.
 
 ``` r
+
 consensus_el <- edge_frequency %>%
   filter(freq >= 3)
 ```
@@ -182,6 +191,7 @@ consensus_el <- edge_frequency %>%
 ## Visualising the Consensus Web
 
 ``` r
+
 library(igraph)
 
 consensus_graph <- graph_from_data_frame(
@@ -208,6 +218,7 @@ where edge weights represent interaction frequency. In this case, the
 each interaction occurs across simulations.
 
 ``` r
+
 weighted_graph <- graph_from_data_frame(
   edge_frequency,
   directed = TRUE

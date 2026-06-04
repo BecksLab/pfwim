@@ -15,6 +15,7 @@ body mass in kg or length in cm). Here we will modify our traits
 dataframe
 
 ``` r
+
 library(pfwim)
 library(dplyr)
 ```
@@ -31,6 +32,7 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
+
 # Adding body mass to our traits
 traits_numeric <- traits %>%
   mutate(body_mass = case_when(
@@ -59,6 +61,7 @@ The num_size_rule argument requires a function that takes two inputs
 (res_size, con_size) and returns 1 (feasible) or 0 (not feasible).
 
 ``` r
+
 my_size_rule <- function(res_size, con_size) {
   ratio <- con_size / res_size
   ifelse(ratio >= 2 & ratio <= 100, 1, 0)
@@ -72,6 +75,7 @@ trait type. If `certainty_req = "all"`, the interaction must satisfy all
 categorical matches AND the numerical size rule.
 
 ``` r
+
 edgelist_size <- infer_edgelist(
   data = traits_numeric,
   cat_combo_list = feeding_rules,
