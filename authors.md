@@ -26,7 +26,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/BecksLab/pfwim/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/BecksLab/pfwim/blob/V1.0.03/DESCRIPTION)
 
 Strydom T (2026). *pfwim: Food Web Construction for Paleo Communities*.
 R package version 1.0.2, <https://beckslab.github.io/pfwim/>.
