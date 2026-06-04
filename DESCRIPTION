@@ -9,7 +9,7 @@ Authors@R: c(
     person("Alexander M.", "Dunhill", role = "ctb",
            comment = c(ORCID = "0000-0002-8680-9163")),
     person("Andrew", "Beckerman", role = "ctb",
-           comment = c(ORCID = "0000-0002-7859-8394")),
+           comment = c(ORCID = "0000-0002-4797-9143")),
     person("Baran", "Karapunar", role = "ctb",
            comment = c(ORCID = "0000-0001-9711-1492")),
     person("Jennifer A.", "Dunne", role = "ctb",
